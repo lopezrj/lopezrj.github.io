@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "R - Matrices and Lists"
+title:  "R -  Matrices and Lists"
 date:   2014-08-31 11:44:27
 categories: r programming matrices
 ---
@@ -16,6 +16,12 @@ The elements i a matrix must be all of the same basic type. By default, matrix e
 {% highlight r %}
     a <- matrix(c(2,1,4,5,3,7), nrow =2)
 {% endhighlight %}
+
+
+___Useful links:___
+
+* [UCLA - R Library: Matrices and matrix computations in R](http://www.ats.ucla.edu/stat/r/library/matrix_alg.htm "R Library: Matrices and matrix computations in R")
+
 
 ## D. Lists
 
