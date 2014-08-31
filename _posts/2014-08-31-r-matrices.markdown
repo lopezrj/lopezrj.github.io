@@ -28,7 +28,7 @@ n <- c(2,3,5)
 s <- c("a","b","c","d")
 b <- c(TRUE,FALSE,TRUE,FALSE)
 
-x <- list(n,s,b,3>
+x <- list(n,s,b,3)
 {% endhighlight %}    
 
 
@@ -59,7 +59,7 @@ To directly access a list member, we have to use the double square bracket "[[]]
 We can assign names to list members and reference them by names instead of numeric indexes.
 
 {% highlight r %}
-    v <- list(peter = c(2,3,5), john= c("aa", "bb")
+    v <- list(peter = c(2,3,5), john= c("aa", "bb"))
 {% endhighlight %}    
 
 #### List Slicing
@@ -88,7 +88,7 @@ v$peter
 We can attach a list to the R search path and access its members without explicitly mentioning the list.
 
 {% highlight r %}
-    attach(v)
-    peter
-    detach(v)  ## should be explicitly detached for cleanup
+attach(v)
+    peter  ## output: c(2,3,5)
+detach(v)  ## should be explicitly detached for cleanup
 {% endhighlight %}    
