@@ -17,8 +17,6 @@ The elements i a matrix must be all of the same basic type. By default, matrix e
     a <- matrix(c(2,1,4,5,3,7), nrow =2)
 {% endhighlight %}
 
-
-
 ## D. Lists
 
 A list is a generic vector containing other objects. It allows objects of differente data type to reside together in the same container.
@@ -56,3 +54,41 @@ To directly access a list member, we have to use the double square bracket "[[]]
     x[[2]]
 {% endhighlight %}    
 
+### 2. Named Members
+
+We can assign names to list members and reference them by names instead of numeric indexes.
+
+{% highlight r %}
+    v <- list(peter = c(2,3,5), john= c("aa", "bb")
+{% endhighlight %}    
+
+#### List Slicing
+
+We retrieve a list slice with the single square bracket "[]" operator.
+
+{% highlight r %}
+    v["peter"]
+{% endhighlight %}    
+
+With an index vector, we can retrive a slice with multiple members
+
+{% highlight r %}
+   v[c("peter","john")]
+{% endhighlight %}    
+
+#### Member Access
+
+{% highlight r %}
+v <- [["peter"]]
+
+v$peter
+{% endhighlight %}    
+
+
+We can attach a list to the R search path and access its members without explicitly mentioning the list.
+
+{% highlight r %}
+    attach(v)
+    peter
+    detach(v)  ## should be explicitly detached for cleanup
+{% endhighlight %}    
