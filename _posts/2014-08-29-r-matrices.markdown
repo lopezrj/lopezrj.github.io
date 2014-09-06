@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "R -  Matrices and Lists"
-date:   2014-08-31 11:44:27
+date:   2014-08-29 11:44:27
 categories: r programming matrices
 ---
 
@@ -11,12 +11,67 @@ A matrix is a collection of data elements arranged in a two-dimensional rectangu
 
 ### 1. Matrix Elements
 
-The elements i a matrix must be all of the same basic type. By default, matrix elements are arranged along the column direction.
+The elements in a matrix must be all of the same basic type. By default, matrix elements are arranged along the column direction.
 
 {% highlight r %}
     a <- matrix(c(2,1,4,5,3,7), nrow =2)
 {% endhighlight %}
 
+We can input matrix elements along the row direction by enabling the by row option.
+{% highlight r %}
+    b <- matrix(c(2,1,4,5,3,7), nrow =2, byrow = TRUE)
+{% endhighlight %}
+
+A matrix of M rows and N columns is called a M x N matrix. An element at the m<sup>th</sup> row and n<sup>th</sup> column can be accessed via
+{% highlight r %}
+    a[m,n]
+{% endhighlight %}
+
+The entire m<sup>th</sup> row can be extracted as a[m,].
+The entire n<sup>th</sup> column can be extracted as a[,n]
+These return a vector. To return a matrix use `drop=False` 
+as argument.
+
+If we assign names to the rows and columns, then we can access matrix elements by names instead of coordinates
+{% highlight r %}
+a["row2","col3"]
+{% endhighlight %}
+
+### 2. Matrix Construction
+
+#### a) Transpose
+We construct the transpose of a matrix by interchanging its columns and rows using the function `t`
+{% highlight r %}
+t(a)
+{% endhighlight %}
+
+#### b) Combining Matrices
+
+To combine two matrices with same numbres of rows use `cbind`
+{% highlight r %}
+cbind(b,c)
+{% endhighlight %}
+
+To combine two matrices having same numbers of columns use the function `rbind`
+{% highlight r %}
+rbind(b,d)
+{% endhighlight %}
+
+### 3. Matrix Arithmetics
+
+#### a) Addition and substraction
+
+We can add or substract two matrices when they have the same dimensions
+{% highlight r %}
+a+b
+{% endhighlight %}
+
+#### b) Multiplication
+
+We can multiply two matrices together if the column dimension of the firt matrix is the same as the row dimension of the second madtrx.
+{% highlight r %}
+a%*%b
+{% endhighlight %}
 
 ___Useful links:___
 
