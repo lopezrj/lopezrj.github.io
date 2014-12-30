@@ -100,16 +100,20 @@ h5write(A,"example.h5","g/a")
 #### Read from twitter
 
 {% highlight r %}
-myapp = outh_app("twitter", key="yourConsumerKeyHere", secret="yourConsumerSecretHere")
-sig = sign_oauth1.0(myapp, token = "yourTokenHere", token_secret = "yourTokenSecretHere")
+myapp = outh_app("twitter", key="yourConsumerKeyHere",
+        secret="yourConsumerSecretHere")
+sig = sign_oauth1.0(myapp, token = "yourTokenHere", 
+      token_secret = "yourTokenSecretHere")
 homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
 {% endhighlight %}
 
 #### Read from github
 
 {% highlight r %}
-myapp = outh_app("github", key="yourConsumerKeyHere", secret="yourConsumerSecretHere")
-sig = sign_oauth1.0(myapp, token = "yourTokenHere", token_secret = "yourTokenSecretHere")
+myapp = outh_app("github", key="yourConsumerKeyHere", 
+    secret="yourConsumerSecretHere")
+sig = sign_oauth1.0(myapp, token = "yourTokenHere", 
+    token_secret = "yourTokenSecretHere")
 homeTL = GET("somegithubaddress", sig)
 {% endhighlight %}
 
