@@ -104,7 +104,7 @@ xlab |	character vector or expression for x axis label
 ylab | character vector or expression for y axis label
 asp	| the y/x aspect ratio
 
-Table: Arguments for `qplot()`
+: Arguments for `qplot()`
 
 ### Sources
 
