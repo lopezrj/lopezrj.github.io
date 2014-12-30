@@ -71,6 +71,41 @@ ggplot(diamonds, aes(carat,price)) +
   scale_y_log(10)
 {% endhighlight %}
 
+
+## C. qplot()
+
+### Usage
+
+{% highlight r %}
+qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
+  geom = "auto", stat = list(NULL), position = list(NULL), 
+  xlim = c(NA,NA), ylim = c(NA, NA), log = "", main = NULL,
+  xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)
+{% endhighlight %}
+
+### Arguments
+
+arg | description
+--- | -----
+x  | x values
+y   | y values
+... | other aesthetics passed for each layer
+data	| data frame to use (optional). If not specified, will create one, extracting vectors from the current environment.
+facets | faceting formula to use. Picks facet_wrap or facet_grid depending on whether the formula is one sided or two-sided
+margins	| whether or not margins will be displayed
+geom | character vector specifying geom to use. Defaults to "point" if x and y are specified, and "histogram" if only x is specified.
+stat | character vector specifying statistics to use
+position | character vector giving position adjustment to use
+xlim	| limits for x axis
+ylim | limits for y axis
+log | which variables to log transform ("x", "y", or "xy")
+main | character vector or expression for plot title
+xlab |	character vector or expression for x axis label
+ylab | character vector or expression for y axis label
+asp	| the y/x aspect ratio
+
+Table: Arguments for `qplot()`
+
 ### Sources
 
 [Hadley WICKHAM. A Layered Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)
