@@ -87,6 +87,7 @@ qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
 
 
 [Arguments for `qplot()`]
+
 arg | description
 --- | -----
 x  | x values
