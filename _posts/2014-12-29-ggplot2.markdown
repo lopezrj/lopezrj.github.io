@@ -85,6 +85,8 @@ qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
 
 ### Arguments
 
+
+[Arguments for `qplot()`]
 arg | description
 --- | -----
 x  | x values
@@ -104,7 +106,6 @@ xlab |	character vector or expression for x axis label
 ylab | character vector or expression for y axis label
 asp	| the y/x aspect ratio
 
-: Arguments for `qplot()`
 
 ### Sources
 
