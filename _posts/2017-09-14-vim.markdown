@@ -1,0 +1,95 @@
+---
+layout: post
+title:  "VIM"
+date:   2017-09-14 11:44:27
+categories: vi programming 
+tags: vi
+---
+
+Two operating modes: command and input. To get into input
+mode, an type and input command letter. Press `Esc` key
+to return to command mode.
+
+{% highlight bash %}
+a - add text to the right
+A - add text at the end of line
+i - insert text to the left
+I - insert text at the beginning of line
+o - open line before current
+O - open line after current
+B or b - move cursor at beginning of the word
+$ - move at the end of line
+0 - move at the beginning of line
+H - move to first line of screen
+M - move to middle line of screen
+L - move to last line of screen
+
+x - deletes character under cursor
+X - deletes character before cursor
+d<?> - deletes some text
+c<?> - changes some text
+y<?> - copies some text
+
+dw - deletes word after cursor
+db - deletes word before cursor
+dd - deletes current line
+
+c$ - erases characters to end of line
+c0 - erases characters to begin of line
+cl - erases currante letter
+cc - erases line and go to input
+
+yy - copies current line
+y) - copies current sentence
+y} - copies current paragraph
+
+P - puts copied text to the left of cursor
+p - puts copied text to the right of cursor
+
+. - repeat delete, change or paste action
+
+zz - save and exit
+:w - save current changes
+:wq - save and exit
+:x - save and exit
+:q - quit
+:q! - quit without saving
+:u - undo previous changes
+:! - run shell command
+ctrl + G - display name of file
+
+ctrl + f - Pages ahead
+ctrl + b - Pages back
+ctrl + d - Pages ahead one half
+ctrl + u - Page back one half
+G - Go to last line of file
+1G - Go to first line of file
+35G - Go to line number 35
+
+/hello - search forward "hello"
+?hello - search backward "hello"
+n - search again same direction
+N - search again opposite direction
+
+{% endhighlight %}
+
+### EX-MODE
+
+:g/Local - searchesn the word "Local" and prints every
+ocurrence in file
+
+:s/Local/Remote - 
+
+:g/Local/s//Remote -
+
+:g/Local/s//Remote/g -
+
+:g/Local/s//Remote/gp
+
+
+:set nu - turn on line numbering
+
+:set nu! - turn off line numbers
+
+Config file:  ~/.vimrc
+
