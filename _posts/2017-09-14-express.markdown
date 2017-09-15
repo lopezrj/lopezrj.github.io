@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "ExpressJS"
-date:   2014-08-30 11:44:27
-categories: javascript programming 
+date:   2017-09-14 21:21:27
+categories: javascript programming
+tags: javascript
 ---
 
 To generate app:

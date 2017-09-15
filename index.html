@@ -3,17 +3,31 @@ layout: default
 ---
 
 <div class="home">
+<!---
+<ul class="blog-tags-list">
+  {% assign sorted_tags = site.tags | sort %}
+  {% for tag in sorted_tags %}
+    {% assign t = tag | first %}
+    {% assign posts = tag | last %}
+    <li class="blog-tag-item" id="{{ t }}-item">
+      <a href onclick="filter('{{ t }}'); return false;">{{ t }}</a>
+    </li>
+  {% endfor %}
+</ul>
+-->
 
   <h1 class="page-heading">Posts</h1>
 
   <ul class="post-list">
     {% for post in site.posts %}
+
       <li>
         <span>
           <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
         </span>
         <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
       </li>
+ 
     {% endfor %}
   </ul>
 
