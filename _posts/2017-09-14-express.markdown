@@ -6,6 +6,203 @@ categories: javascript programming
 tags: javascript
 ---
 
+Express is a framework that uses Node.js web
+server functionality to simplify its API and add
+other features. It makes it easier to organize applications
+functionality with middleware and routing; it adds
+utilities to Node.js HTTP objects; it facilitates
+the rendering of dynamic HTML views; it defines an
+easily implemented extensibility standard.
+
+The javascript function that processes browser requests
+in you application is called a request handler. In code,
+its a function that takes to arguments: an object
+that represents the requests and an object that
+represents the response.
+
+At a high level, Express provides four major features:
+
+1. Middleware: Express has a middleware stack, which
+is an array of functions. Rather than one monolithic request handler function,
+you call several request handler functions that each
+deal with a small chunck of work. These smaller requests
+handler function are called middleware functions,
+or middleware.
+
+2. Routing: Functions that are called only when you
+visit a specific URL with a specific method. These request handles are executed conditionally,
+depending on what URL and HTTP method a client
+sends.
+
+3. __Extensions__ to requests and response objects:
+extra methods and properties for developer convenience.
+
+4. Views: Allow to dynamically render HTML. This
+allows to change the HTML on the fly and to write
+the HTML in other languages.
+
+Express.js [link](http://www.expressjs.com)
+
+Bookshelf.js [link](http://www.bookshelfjs.org)
+
+## 1. MIDDLEWARE
+
+Framework-free Node has you writing a single large
+requests handler founction for your entire app. 
+Middleware allows you to break these request handles
+functions into smaller bits. These smaller functions
+tend to handle one thing at a time.
+
+Rather than having just one handler, middleware
+allows for many to happen in sequence. Rather than
+having your request pass through one function, it
+passes through an array of functions called a
+middleware stack.
+
+Each middleware function can modify the request or
+the response, but it doesn't always hava to. Eventually,
+some middleware should respond to the request. If none
+of them respond, then the server will hang and 
+the browser will sit alone, without a response.
+
+This is powerful because an application can be 
+splitted into many small parts. These components
+become easier to compose and reorder and it is 
+also easy to pull third-party middleware.
+
+### Middleware and the middleware stack
+
+Web servers listen for request, parse those requests,
+and send responses. The Node runtime will get these
+requests firt and turn them from raw bytes into two
+Javascript objects that you can hendel one object 
+for the request (req) and one object for the response
+(res).
+
+In Express these objects are passed through an array
+of functions, called the middleware stack. Express
+will start at the first function in the stack and 
+continue in order down the stack. Every function in 
+this stack takes three arguments. The first twe are
+req and res. They are given by Node. The third 
+argument is itself a function, conventionally 
+called `next`. When next is called, Express will go on
+to the next function in the stack. Eventually, one 
+of these functions must call `res.end`, which will
+end the request.
+
+There are two types of middleware. The first type
+are regular middleware functions that take three
+arguments. Most of the time, the app is in normal
+mode, which looks only at theses middleware function
+and skips the other.
+
+The second kind is error-handling middleware. When 
+the application is in error mode all regular 
+middleware is ignored and Express will execute
+only error-handling middleware functions. To enter
+error mode, call next with an
+argument. Its contion to call it with an error 
+object.
+
+These middleware functions take four arguments. The
+first one is the error (the argument passed into 
+`next`), and the remainder are: `req`, `res` and `next`.
+
+Calling next with no arguments will exit error mode
+and move onto the next normal middleware; calling
+it with and argument will continue onto the next 
+error-handling middleware if one exists.
+
+### Other middleware
+
+There is only one piece of middleware that is bundled
+with Express: _express.static_. The Express team
+maintains a number of middleware modules:
+- body-parser (for parsign request bodies)
+- cookie-parser (for parsing cookies from users,
+paired with express-session to keep track of users)
+- compression (for compressing responses to save on
+bytes)
+
+Other important middleware:
+- Helmet (helps secure applications) <a href="https://helmetjs.github.io"><span class="oi oi-external-link" title="helmet" aria-hidden="true"></span></a>
+- connect-asset (compiles and minifies CSS and Javasript assets)
+
+Some third-party middleware:
+- Morgan: logging middleware connect-rate limit
+- Helmet: prevent some attacks
+- cookie-parser: parses cookies
+- response-time: sends the X-Response-time header to
+debug the performance of application.
+
+## 2. ROUTING
+
+Routing is a way to map requests to specific handlers
+on ther URL and HTTP verb.
+
+The first argument is a path. The second argument is
+a request handler function similar to middleware 
+section. In addition to matching fixed routes, they
+can match more complex ones.
+
+Routing maps verbs and URIs to specific code. It maps
+an HTTP verb + URI combo to a request handler.
+
+Routes can have parameters. The simplest way to grab
+a parameter is by putting it in the route with a colon
+in front of it. To grab the value, you'll look inside
+the params property of the request.
+
+Express allows to sepecify routers as strings and to
+specify them as regular expressions.
+
+Another common way to dynamically pass information in
+URLs is to use query strings. These can be retrieved
+with `req.query`.
+
+
+
+### Routers
+
+A router is an isolated instance of middleware and
+routes. Routers can be thought of as "mini" applications
+only capable of performing middleware and routing.
+Every Express application has a built-in app router.
+
+Router behavve like middleware and can be ".use()d"
+by the app in other routers. Routers allow to chunk
+a big app into numerous miniapps that can be later put
+together.
+
+### Serving Static Files
+
+`path.resolve` helps keep path resolution cross-plataform.
+
+Middleware can be mounted at a given prefix.
+
+{% highlight javascript %}
+var apath = path.resolve(__dirname, "apath");
+app.use("/otherpath", express.static("apath"));
+{% endhighlight %}
+
+Because express static is middleware, you can just
+apply it multiple times.
+
+## 3. Extending request and response
+
+The response object gets conveniences. The request
+object gets a number of cool properties and methods
+(See Express API)
+
+## 4. Views
+
+A number of different view engines are available to
+dynamically generate HTML (EJS, Handlebars, Pug, other)
+
+
+# How to
+
 To generate app:
 
 {% highlight javascript %}
@@ -21,3 +218,4 @@ To control version:
 git init
 
 {% endhighlight %}
+

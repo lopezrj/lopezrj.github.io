@@ -1,23 +1,23 @@
 ---
 layout: default
 ---
-
-<div class="home">
-<!---
-<ul class="blog-tags-list">
+  <div class="container-fluid">
+    <br>
+    <div class="row">
+    <div class="col-sm-2 col-lg-2">
+    <ul class="list-unstyled">
   {% assign sorted_tags = site.tags | sort %}
   {% for tag in sorted_tags %}
     {% assign t = tag | first %}
     {% assign posts = tag | last %}
-    <li class="blog-tag-item" id="{{ t }}-item">
-      <a href onclick="filter('{{ t }}'); return false;">{{ t }}</a>
+    <li id="{{ t }}-item">
+      <a  href onclick="filter('{{ t }}'); return false;">{{ t }}</a>
     </li>
   {% endfor %}
 </ul>
--->
-
-  <h1 class="page-heading">Posts</h1>
-
+</div>
+<div class="col-sm-10 col-lg-10">
+   <h2><span class="oi oi-document" title="document" aria-hidden="true"> Posts </span></h2>
   <ul class="post-list">
     {% for post in site.posts %}
 
@@ -30,7 +30,8 @@ layout: default
  
     {% endfor %}
   </ul>
-
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-
+  </div>
 </div>
+</div>
+ 

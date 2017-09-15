@@ -1,6 +1,20 @@
 ---
-layout: page
+layout: default
 title: Projects
 permalink: /project/
 ---
 
+<div class="container-fluid">
+  <ul class="post-list">
+    {% for post in site.posts %}
+      {% if post.tags contains "r" %}
+      <li>
+        <span>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </span>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+      </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
