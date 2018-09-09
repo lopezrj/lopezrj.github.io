@@ -5,33 +5,41 @@ layout: default
     <br>
     <div class="row">
     <div class="col-sm-2 col-lg-2">
-    <ul class="list-unstyled">
-  {% assign sorted_tags = site.tags | sort %}
-  {% for tag in sorted_tags %}
+      <div class="list-unstyled list-group">
+        {% assign sorted_tags = site.tags | sort %}
+        {% for tag in sorted_tags %}
+          {% assign t = tag | first %}
+          {% assign posts = tag | last %}
+            <a  class="blog-tag-item list-group-item list-group-item-action" id="{{ t }}-item primary" href onclick="filter('{{ t }}'); return false;">{{ t | downcase   }}
+             <span class="badge badge-primary">{{ posts | size }}</span>
+          </a> 
+        {% endfor %}
+        </div>
+  </div>
+<div class="col-sm-10 col-lg-10">
+ {% for tag in site.tags %}
     {% assign t = tag | first %}
     {% assign posts = tag | last %}
-    <li id="{{ t }}-item">
-      <a  href onclick="filter('{{ t }}'); return false;">{{ t }}</a>
-    </li>
+    <div class="blog-list-container" id="{{ t }}-container">
+      <h3>{{t}}</h3>
+      <ul class="blog-list">
+        {% for post in posts %}
+          {% if post.tags contains t %}
+            <li>
+              <span>
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+              </span>
+              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+            </li>
+          {% endif %}
+        {% endfor %}
+       </ul>
+    </div>
   {% endfor %}
-</ul>
-</div>
-<div class="col-sm-10 col-lg-10">
-   <h2><span class="oi oi-document" title="document" aria-hidden="true"> Posts </span></h2>
-  <ul class="post-list">
-    {% for post in site.posts %}
-
-      <li>
-        <span>
-          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        </span>
-        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-      </li>
- 
-    {% endfor %}
-  </ul>
+ <!--
   <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
-  </div>
+ -->
+ </div>
 </div>
 </div>
  
