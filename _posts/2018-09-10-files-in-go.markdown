@@ -7,7 +7,7 @@ tags: go
 ---
 
 ## Create Empty File
-```
+{% highlight go %}
 package main
 
 import (
@@ -28,10 +28,10 @@ func main() {
     log.Println(newFile)
     newFile.Close()
 }
-```
+{% endhighlight %}
 
 ## Truncate a File
-```
+{% highlight go %}
 package main
 
 import (
@@ -53,11 +53,11 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Get File Info
 
-```
+{% highlight go %}
 package main
 
 import (
@@ -86,11 +86,11 @@ func main() {
     fmt.Printf("System interface type: %T\n", fileInfo.Sys())
     fmt.Printf("System info: %+v\n\n", fileInfo.Sys())
 }
-```
+{% endhighlight %}
 
 ## Rename and Move a File
 
-```
+{% highlight go %}
 package main
 
 import (
@@ -106,10 +106,10 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Delete a File
-```
+{% highlight go %}
 package main
 
 import (
@@ -123,11 +123,11 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Open and Close Files
 
-```
+{% highlight go %}
 package main
 
 import (
@@ -164,11 +164,11 @@ func main() {
     // os.O_CREATE // Create is none exist
     // os.O_TRUNC // Truncate file when opening
 }
-```
+{% endhighlight %}
 
 ## Check if File Exists
 
-```
+{% highlight go %}
 package main
 
 import (
@@ -193,10 +193,10 @@ func main() {
     log.Println("File does exist. File information:")
     log.Println(fileInfo)
 }
-```
+{% endhighlight %}
 
 ## Check Read and Write Permissions
-```
+{% highlight go %}
 package main
 
 import (
@@ -225,10 +225,10 @@ func main() {
     }
     file.Close()
 }
-```
+{% endhighlight %}
 
 ## Change Permissions, Ownership, and Timestamps
-```
+{% highlight go %}
 package main
 
 import (
@@ -259,13 +259,13 @@ func main() {
         log.Println(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Hard Links and Symlinks
 A typical file is just a pointer to a place on the hard disk called an inode. A hard link creates a new pointer to the same place. A file will only be deleted from disk after all links are removed. Hard links only work on the same file system. A hard link is what you might consider a 'normal' link.
 
 A symbolic link, or soft link, is a little different, it does not point directly to a place on the disk. Symlinks only reference other files by name. They can point to files on different filesystems. Not all systems support symlinks.
-```
+{% highlight go %}
 package main
 
 import (
@@ -309,9 +309,9 @@ fmt.Println("creating sym")
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 # Copy a File
-```
+{% highlight go %}
 package main
 
 import (
@@ -350,9 +350,9 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 ## Seek Positions in File
-```
+{% highlight go %}
 package main
 
 import (
@@ -399,12 +399,12 @@ func main() {
     }
     fmt.Println("Position after seeking 0,0:", newPosition)
 }
-```
+{% endhighlight %}
 
 ## Write Bytes to a File
 You can write using just the os package which is needed already to open the file. Since all Go executables are statically linked binaries, every package you import increases the size of your executable. Other packages like io, ioutil, and bufio provide some more help, but they are not necessary.
 
-```
+{% highlight go %}
 
 package main
 
@@ -433,11 +433,11 @@ func main() {
     }
     log.Printf("Wrote %d bytes.\n", bytesWritten)
 }
-```
+{% endhighlight %}
 
 ## Quick Write to File
 The ioutil package has a useful function called WriteFile() that will handle creating/opening, writing a slice of bytes, and closing. It is useful if you just need a quick way to dump a slice of bytes to a file.
-```
+{% highlight go %}
 package main
 
 import (
@@ -451,11 +451,11 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Use Buffered Writer
 The bufio package lets you create a buffered writer so you can work with a buffer in memory before writing it to disk. This is useful if you need to do a lot manipulation on the data before writing it to disk to save time from disk IO. It is also useful if you only write one byte at a time and want to store a large number in memory before dumping it to file at once, otherwise you would be performing disk IO for every byte. That puts wear and tear on your disk as well as slows down the process.
-```
+{% highlight go %}
 package main
 
 import (
@@ -542,11 +542,11 @@ func main() {
     }
     log.Printf("Available buffer: %d\n", bytesAvailable)
 }
-```
+{% endhighlight %}
 
 ## Read up to n Bytes from File
 The os.File type provides a couple basic functions. The io, ioutil, and bufio packages provided additional functions for working with files.
-```
+{% highlight go %}
 package main
 
 import (
@@ -573,9 +573,9 @@ func main() {
     log.Printf("Number of bytes read: %d\n", bytesRead)
     log.Printf("Data read: %s\n", byteSlice)
 }
-```
+{% endhighlight %}
 ## Read Exactly n Bytes
-```
+{% highlight go %}
 package main
 
 import (
@@ -602,10 +602,10 @@ func main() {
     log.Printf("Number of bytes read: %d\n", numBytesRead)
     log.Printf("Data read: %s\n", byteSlice)
 }
-```
+{% endhighlight %}
 
 ## Read At Least n Bytes
-```
+{% highlight go %}
 package main
 
 import (
@@ -633,10 +633,10 @@ func main() {
     log.Printf("Number of bytes read: %d\n", numBytesRead)
     log.Printf("Data read: %s\n", byteSlice)
 }
-```
+{% endhighlight %}
 ## Read All Bytes of File
 
-```
+{% highlight go %}
 package main
 
 import (
@@ -669,9 +669,9 @@ func main() {
     fmt.Printf("Data as string: %s\n", data)
     fmt.Println("Number of bytes read:", len(data))
 }
-```
+{% endhighlight %}
 ## Quick Read Whole File to Memory
-```
+{% highlight go %}
 package main
 
 import (
@@ -688,10 +688,10 @@ func main() {
 
     log.Printf("Data read: %s\n", data)
 }
-```
+{% endhighlight %}
 ## Use Buffered Reader
 Creating a buffered reader will store a memory buffer with some of the contents. A buffered reader also provides some more functions that are not available on the os.File type or the io.Reader. Default buffer size is 4096 and minimum size is 16.
-```
+{% highlight go %}
 package main
 
 import (
@@ -750,7 +750,7 @@ func main() {
     // This example reads a few lines so test.txt
     // should have a few lines of text to work correct
 }
-```
+{% endhighlight %}
 ## Read with a Scanner
 
 Scanner is part of the bufio package. It is useful for stepping through files at specific delimiters. Commonly, the newline character is used as the delimiter to break up a file by lines. In a CSV file, commas would be the delimiter. The os.File can be wrapped in a bufio.Scanner just like a buffered reader. We call Scan() to read up to the next delimiter, and then use Text() or Bytes() to get the data that was read.
@@ -764,7 +764,7 @@ type SplitFunc func(data []byte, atEOF bool) (advance int, token []byte, err err
 // to scan again, but with a bigger buffer because
 // it wasn't enough data to reach the delimiter
 In the next example, a bufio.Scanner is created from the file, and then we scan read the file word by word.
-```
+{% highlight go %}
 package main
 
 import (
@@ -803,9 +803,9 @@ func main() {
 
     // Call scanner.Scan() again to find next token
 }
-```
+{% endhighlight %}
 ## Archive(Zip) Files
-```
+{% highlight go %}
 // This example uses zip but standard library
 // also supports tar archives
 
@@ -864,11 +864,11 @@ func main() {
             log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Extract(Unzip) Archived Files
 
-```
+{% highlight go %}
 // This example uses zip but standard library
 // also supports tar archives
 package main
@@ -941,10 +941,10 @@ func main() {
         }
     }
 }
-```
+{% endhighlight %}
 
 ## Compress a File
-```
+{% highlight go %}
 
 // This example uses gzip but standard library also
 // supports zlib, bz2, flate, and lzw
@@ -982,10 +982,10 @@ func main() {
 
     log.Println("Compressed data written to file.") 
 }
-```
+{% endhighlight %}
 
 ## Uncompress a File
-```
+{% highlight go %}
 
 // This example uses gzip but standard library also
 // supports zlib, bz2, flate, and lzw
@@ -1031,11 +1031,11 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 
 ## Temporary Files and Directories
 The ioutil package provides two functions: TempDir() and TempFile(). It is the callers responsibility to delete the temporary items when done. The only benefit these functions provide is that you can pass it an empty string for the directory, and it will automatically create the item in the system's default temporary folder (/tmp on Linux). Since os.TempDir() function that will return the defauly system temporary directory.
-```
+{% highlight go %}
 package main
 
 import (
@@ -1078,9 +1078,9 @@ func main() {
         log.Fatal(err)
     }
 }
-```
+{% endhighlight %}
 ## Downloading a File Over HTTP
-```
+{% highlight go %}
 package main
 
 import (
@@ -1114,9 +1114,9 @@ func main() {
      }
      log.Printf("Downloaded %d byte file.\n", numBytesWritten)
 }
-```
+{% endhighlight %}
 ## Hashing and Checksums
-```
+{% highlight go %}
 package main
 
 import (
@@ -1142,9 +1142,9 @@ func main() {
     fmt.Printf("Sha256: %x\n\n", sha256.Sum256(data))
     fmt.Printf("Sha512: %x\n\n", sha512.Sum512(data))
 }
-```
+{% endhighlight %}
 The example above copies the entire file in to memory. This was for convenience to pass it as a parameter to each of the hash functions. Another approach is to create the hash writer interface and write to it using Write(), WriteString(), or in this case, Copy(). The example below uses the md5 hash, but you can switch to use any of the others that are supported.
-```
+{% highlight go %}
 package main
 
 import (
@@ -1176,4 +1176,4 @@ func main() {
     sum := hasher.Sum(nil)
     fmt.Printf("Md5 checksum: %x\n", sum)
 }
-```
+{% endhighlight %}
