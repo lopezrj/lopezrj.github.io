@@ -191,7 +191,7 @@ apply it multiple times.
 
 The response object gets conveniences. The request
 object gets a number of cool properties and methods
-(See Express API)
+[See Express API](https://expressjs.com/en/4x/api.html)
 
 ## 4. Views
 
