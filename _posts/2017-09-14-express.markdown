@@ -47,20 +47,20 @@ Bookshelf.js [link](http://www.bookshelfjs.org)
 
 ## 1. MIDDLEWARE
 
-Framework-free Node has you writing a single large
+Framework-free Node requires writing a single large
 requests handler founction for your entire app. 
-Middleware allows you to break these request handles
+Middleware allows to break these request handles
 functions into smaller bits. These smaller functions
 tend to handle one thing at a time.
 
 Rather than having just one handler, middleware
 allows for many to happen in sequence. Rather than
-having your request pass through one function, it
+having the request pass through one function, it
 passes through an array of functions called a
 middleware stack.
 
 Each middleware function can modify the request or
-the response, but it doesn't always hava to. Eventually,
+the response, but it doesn't always have to. Eventually,
 some middleware should respond to the request. If none
 of them respond, then the server will hang and 
 the browser will sit alone, without a response.
@@ -161,8 +161,6 @@ Another common way to dynamically pass information in
 URLs is to use query strings. These can be retrieved
 with `req.query`.
 
-
-
 ### Routers
 
 A router is an isolated instance of middleware and
@@ -206,16 +204,12 @@ dynamically generate HTML (EJS, Handlebars, Pug, other)
 To generate app:
 
 {% highlight javascript %}
-
-express-generator -s stylus -p pug <name>
-
+    express-generator -s stylus -p pug <name>
 {% endhighlight %}
 
 To control version:
 
 {% highlight bash %}
-
-git init
-
+    git init
 {% endhighlight %}
 
