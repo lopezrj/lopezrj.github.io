@@ -23,7 +23,6 @@ All of these are things must be taken into account
 * Monitoring
 * Security
 
-
 Another perspective are things within your actual microservice 
 implementation. Regardless of where you’re coming from, you probably 
 have worked with libraries that provides things such as:
