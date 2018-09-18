@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "Go Microservices"
+date:   2018-09-16 12:07
+categories: go 
+tags: go
+---
+
+This post is based on the EXCELENT blog [Go Microservices Blog Series](http://callistaenterprise.se/blogg/teknik/2017/02/17/go-blog-series-part1/).
+
+
+All of these are things must be taken into account
+ when deciding to go for a microservice architecture regardless 
+ if it is going to be code in Go, Java, js, python or  C# .
+
+* Centralized configuration
+* Service Discovery
+* Logging
+* Distributed Tracing
+* Circuit Breaking
+* Load balancing
+* Edge
+* Monitoring
+* Security
+
+
+Another perspective are things within your actual microservice 
+implementation. Regardless of where you’re coming from, you probably 
+have worked with libraries that provides things such as:
+
+* HTTP / RPC / REST / SOAP / Whatever APIs
+* Persistence APIs (DB clients, JDBC, O/R mappers)
+* Messaging APIs (MQTT, AMQP, JMS)
+* Testability (Unit / Integration / System / Acceptance)
+* Build tools / CI / CD
+
