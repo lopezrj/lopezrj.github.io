@@ -10,9 +10,9 @@ When you're building a web application there's probably some shared functionalit
 
 One way of organising this shared functionality is to set it up as __middleware__ – self-contained code which independently acts on a request before or after your normal application handlers. In Go a common place to use middleware is between a `ServeMux` and your application handlers, so that the flow of control for a HTTP request looks like:
 
-{% highlight %}
+```
     ServeMux => Middleware Handler => Application Handler
-{% endhighlight %}
+```
 
 ### The Basic Principles
 
