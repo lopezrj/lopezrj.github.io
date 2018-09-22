@@ -1,0 +1,26 @@
+---
+layout: post
+title:  "Node.js"
+date:   2018-09-16 12:07
+categories: node javascript 
+tags: node javascript
+---
+
+Node.js is an asynchronous, event-driven JavaScript runtime that offers a powerful but concise standard library.
+
+Node uses Google's V8 JavaScript engine that's based on the sixth edition of the ECMAScript statndard, which is sometimes called __ES6__ and abbreviated __ES2015__.
+
+One of the strengths of Node and JavaScript in general is their single-threaded programming model. Threads are a common source of bugs. In browser-based code, we write sequences of instructions that execute one at a time; code doesn't execute in parallel. This doesn't make sense for user interfaces, however: users don't want to wait around for slow operations such as network or file access to finish. To get around this, browsers use events: when you click a button, an event fires, and a function runs that has previously been defined but not yet executed.
+
+Node uses three techniques: events, asychronous APIs, and nonblocking I/O. _Nonblocking I/O_ means taht your program can make a request for a network resource while doig something else, and then, when the network operation has finished, a callback will run that handles the result.
+
+The reala benefit to using asynchronous APIs with nonblocking I/O is that Node can do other things while these comparatively slow processes happen. Even though you have only a single-threaded, single-process Node web app running, it can handle more than one connection from potentially thousands of website visitors at any one time.
+
+Node's built-in HTTP server library, which is a core module called http.Server, handles the request by using a combination of streams, events, and Node's HTTP request parser, which is native code. This triggers a callback in your application to run. The callback tht runs causes a database query to run, and eventually the application responds with JSON using HTTP. This whole process uses a minimum of three nonblocking network calls: one for the request, one for the database, and another for the response. Node schedules all these nonblocking network operations with the event loop.
+
+The even loop runs one way (it's a first-in, first-out queue) and goes through several phases. First, the timers execute. Next, I/O callbacks run, so if any I/O has returned from one of the nonblocking network calls, this is where your callback is triggered. The poll phase is where new I/O events are retrieved, and then callbacks scheduled with `setImmediate` run at the end.
+
+Node is powered by th V8 JavaScript engine, which is developed by th Chromium project for Google Chrome. The notable feature of V8 is that it compiles directly to machine code, and it includes code-optimization feature that help keep Node fast.
+
+Node allow to make classes, and using `const` and `let` (instead of `var`) fixes scoping issues. You can use default function parameters, rest parameters, the `spread` operator, `for...of` loops, template strings, destructuring, promises, generators and more. See Nodes's ES2015 support [here](http://node.green) 
+
