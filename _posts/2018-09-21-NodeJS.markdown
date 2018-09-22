@@ -24,3 +24,5 @@ Node is powered by th V8 JavaScript engine, which is developed by th Chromium pr
 
 Node allow to make classes, and using `const` and `let` (instead of `var`) fixes scoping issues. You can use default function parameters, rest parameters, the `spread` operator, `for...of` loops, template strings, destructuring, promises, generators and more. See Nodes's ES2015 support [here](http://node.green) 
 
+A list of features of ES2015 is [here](https://ponyfoo.com/articles/es6).
+
