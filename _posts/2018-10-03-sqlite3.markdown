@@ -41,3 +41,15 @@ The coder generator translates the parse tree into a kind of assembly language s
 At the center of the stack is the virtual machine, also called the _virtual database engine_ (VDBE). It is a register-based virtual machine that works on byte code, making it independent of the underlying operating system, CPU, or system architcture.  The VDBE language consists of mor than 100 possible tasks known as _opcode_, which are all centered on the database operation. The VDBE is designed specifically for data processing. Every instruction either accomplishes a specific database operation or performs manipulations to prepare for such an operation.  Every SQL statement in SQLite is first compiled to this virtual machine language, formin a standalone instruction set that defines how to perform the given command.
 
 ### The Backend
+
+The backend consist of the B-tree, page cache, and OS interface. The B-tree and page cache(pager) work together as informations brokers. Their currency is database pages, which are uniformly sized blocks of data, that, like containers, are made for transportation.  Inside the pages are the bit of information such as records and columns and index entries. Neither the B-tree nor the pager has any knowledge of the contents. They only move and order pages; they don't care what's inside.
+
+The B-tree's job is order. It maintains many complex and intricate relationships between pages, which keeps everything connected and easy to locate. It organizes pages into tree-like structures, which are highly optimized for searching.
+
+The pager serves the B-tree, feeding it pages. Its job its transportation and efficiency. The pager transfer pages to an from disk at the B-tree's behest. The pager tries to speed this up by keeping frequently used pages cached in memory and thus minimizes the number of times it has to deal directly with the hard drive. It uses special techniques to predict which pages will be needed in the future and thus anticipate the needs of the B-tree, keeping pages flying as fast as possible. Also in the pager's job description are transaction management, database locking, and crash recovery. Many of these jobs are mediated by the OS interface.
+
+Thing such as file locking are often implemented differently in differente operating systems. The OS interface provides and abstraction layer that hides these deifferences from other SQLite modules. The end result is that the other modules see a single consistent interface with which to do things like locking.
+
+### Utilities and Test Code
+
+Miscellaneous utilities and commond services such as memory allocation, string comparison, and Unicode conversion routines are kept in the utilities module. This is basically a catchall module for services that multiple modules need to use or share. The testing module contains a myriad of regression tests designed to examine very little corner of the database code.
