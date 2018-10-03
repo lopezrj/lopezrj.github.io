@@ -5,6 +5,7 @@
     </a>
 
     <nav class="nav">
+      <a class="nav-link" href="/">Home</a>
       {% for page in site.pages %}
         {% if page.title %}
           <a class="nav-link" href="{{ page.url | prepend: site.baseurl }}">{{ page.title }}</a>

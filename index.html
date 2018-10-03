@@ -11,10 +11,11 @@ layout: default
           {% assign t = tag | first %}
           {% assign posts = tag | last %}
             <a  class="blog-tag-item list-group-item list-group-item-action" id="{{ t }}-item primary" href onclick="filter('{{ t }}'); return false;">{{ t | downcase   }}
-             <span class="badge badge-primary">{{ posts | size }}</span>
+          <!--   <span class="badge badge-primary">{{ posts | size }}</span> -->
           </a> 
         {% endfor %}
         </div>
+        <br>
   </div>
 <div class="col-sm-10 col-lg-10">
  {% for tag in site.tags %}
