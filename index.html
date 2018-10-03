@@ -23,18 +23,24 @@ layout: default
     {% assign posts = tag | last %}
     <div class="blog-list-container" id="{{ t }}-container">
       <h3>{{t}}</h3>
-      <ul class="blog-list">
-        {% for post in posts %}
-          {% if post.tags contains t %}
-            <li>
-              <span>
-                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-              </span>
-              <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
-            </li>
+        <div class="row">
+          {% for post in posts %}
+            {% if post.tags contains t %}
+              <div class="col-sm-6">
+                <div class="card bg-light mb-3" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    </h5>
+                    <h6 class="card-subtitle">
+                      <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+                    </h6>
+                  </div>
+                </div>
+            </div>
           {% endif %}
-        {% endfor %}
-       </ul>
+          {% endfor %}
+        </div>
     </div>
   {% endfor %}
  <!--
