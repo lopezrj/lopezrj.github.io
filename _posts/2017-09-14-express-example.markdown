@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "ExpressJS Example"
-date:   2017-09-14 24:21:27
+date:   2017-09-14 22:21:27
 categories: javascript programming
 tags: javascript express
 ---
