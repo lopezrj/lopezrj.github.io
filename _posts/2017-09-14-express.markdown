@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "ExpressJS"
-date:   2017-09-14 21:21:27
+date:   2018-10-05 11:11:27
 categories: javascript programming
 tags: javascript express
 ---
@@ -22,14 +22,14 @@ represents the response.
 
 At a high level, Express provides four major features:
 
-1. Middleware: Express has a middleware stack, which
+1. __Middleware__: Express has a middleware stack, which
 is an array of functions. Rather than one monolithic request handler function,
 you call several request handler functions that each
 deal with a small chunck of work. These smaller requests
 handler function are called middleware functions,
 or middleware.
 
-2. Routing: Functions that are called only when you
+2. __Routing__: Functions that are called only when you
 visit a specific URL with a specific method. These request handles are executed conditionally,
 depending on what URL and HTTP method a client
 sends.
@@ -37,7 +37,7 @@ sends.
 3. __Extensions__ to requests and response objects:
 extra methods and properties for developer convenience.
 
-4. Views: Allow to dynamically render HTML. This
+4. __Views__: Allow to dynamically render HTML. This
 allows to change the HTML on the fly and to write
 the HTML in other languages.
 
@@ -45,7 +45,7 @@ Express.js [link](http://www.expressjs.com)
 
 Bookshelf.js [link](http://www.bookshelfjs.org)
 
-## 1. MIDDLEWARE
+## 1. Middleware
 
 Framework-free Node requires writing a single large
 requests handler founction for your entire app. 
@@ -136,7 +136,7 @@ Some third-party middleware:
 - response-time: sends the X-Response-time header to
 debug the performance of application.
 
-## 2. ROUTING
+## 2. Routing
 
 Routing is a way to map requests to specific handlers
 on ther URL and HTTP verb.
@@ -189,12 +189,130 @@ apply it multiple times.
 
 ## 3. Extending request and response
 
-The response object gets conveniences. The request
-object gets a number of cool properties and methods
-[See Express API](https://expressjs.com/en/4x/api.html)
+Express extends the request and response objects with extra methods and
+properties for developer convenience. [See Express API](https://expressjs.com/en/4x/api.html)
+
+__Request__
+
+  _Properties_
+  <a href="https://expressjs.com/en/4x/api.html#req.app">req.app</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.baseUrl">req.baseUrl</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.body">req.body</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.cookies">req.cookies</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.fresh">req.fresh</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.hostname">req.hostname</a>
+   <a href="https://expressjs.com/en/4x/api.html#req.ip">req.ip</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.ips">req.ips</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.method">req.method</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.originalUrl">req.originalUrl</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.params">req.params</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.path">req.path</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.protocol">req.protocol</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.query">req.query</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.route">req.route</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.secure">req.secure</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.signedCookies">req.signedCookies</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.stale">req.stale</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.subdomains">req.subdomains</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.xhr">req.xhr</a>
+
+  _Methods_
+  <a href="https://expressjs.com/en/4x/api.html#req.accepts">req.accepts()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.acceptsCharsets">req.acceptsCharsets()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.acceptsEncodings">req.acceptsEncodings()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.acceptsLanguages">req.acceptsLanguages()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.get">req.get()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.is">req.is()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.param">req.param()</a>
+  <a href="https://expressjs.com/en/4x/api.html#req.range">req.range()</a>
+
+
+__Response__
+
+  _Properties_
+  <a href="https://expressjs.com/en/4x/api.html#res.app">res.app </a>
+  <a href="https://expressjs.com/en/4x/api.html#res.headersSent">res.headersSent</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.locals">res.locals</a>
+
+  _Methods_
+  <a href="https://expressjs.com/en/4x/api.html#res.append">res.append()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.attachment">res.attachment()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.cookie">res.cookie()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.clearCookie">res.clearCookie()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.download">res.download()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.end">res.end()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.format">res.format()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.get">res.get()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.json">res.json()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.jsonp">res.jsonp()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.links">res.links()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.location">res.location()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.redirect">res.redirect()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.render">res.render()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.send">res.send()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.sendFile">res.sendFile()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.sendStatus">res.sendStatus()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.set">res.set()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.status">res.status()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.type">res.type()</a>
+  <a href="https://expressjs.com/en/4x/api.html#res.vary">res.vary()</a>
 
 ## 4. Views
 
+Views are the way to dynamically generate content(usually HTML).
+A view engine is a module that does the actual rendering of views.
+
 A number of different view engines are available to
-dynamically generate HTML (EJS, Handlebars, Pug, other)
+dynamically generate HTML (EJS, Handlebars, Pug and others)
+
+### View rendering
+
+When the program calls `render`, what happens is this:
+
+1. _Express builds up the context object every time you call render._
+These context objects will get passed to the view engines when it's time
+to render. These are effectively the variables available to views.
+
+It first adds all the properties from `app.locals`, and object available to every request.
+Then it adds all the properties in `res.locals`, overwriting anything added from `app.locals` if it was present.
+Finally, it adds the properties of the object passed to `render`. 
+
+2. _Express decide whether view caching is enabled._
+Express caches the lookup of the view file and its assignment to the proper view engine.
+It decides whether view caching is enabled in two ways:
+
+   a. The option `app.enabled("view cache")`. By default, this is disabled in development
+   mode and enabled in production, but it can be changed with `app.enable("view cache")` 
+   or `app.disable(view cache)`.
+
+   b. If the context object generated in the previous step has a truthy property called `cache`,
+   then caching will be enabled for that view. This overrides any aplication setting. This enables to cache
+   on a view-by-view basis.
+
+3. _Express look up where the view file resides and what view engine to use._
+
+4. _Express appends the default file extension if no extension was supplied._
+
+5. _Express looks at the file extension to determine which engine to use._
+
+6. _Express looks the file up in the `views` directory._ If it doen't find the file, it throws an error.
+
+7. _Express caches all the lookup logic if it should._ If view caching enabled, it will cache all this lookup
+logic for the next time.
+
+8. _Express render the view_. This calls out the view engine and its one line in the Express's source code. This is where the view engine takes over and produces actual HTML.
+
+### Making all view engines compatible with Express
+
+Many of the view engines, such as EJS and Pug, will work with Express out of the box.
+Others don't have an Express-compatible API and need to be wrapped in smoething Express can understand.
+
+Consolidate.js (https://github.com/tj/consolidate.js) is a library that wraps a ton of view engines to
+be compatible with Express. It has support for the classics like EJS, Pug, Mustache, Handlebars, and Hogan. To use it add to `app.js` 
+
+{% highlight javascript %}
+var engines = require('consolidate');
+// and
+app.engine(<engine_alias>, engines.<engine>);
+{% endhighlight %}
 
