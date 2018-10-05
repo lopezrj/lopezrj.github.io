@@ -16,7 +16,7 @@ easily implemented extensibility standard.
 
 The javascript function that processes browser requests
 in you application is called a request handler. In code,
-its a function that takes to arguments: an object
+its a function that takes two arguments: an object
 that represents the requests and an object that
 represents the response.
 
