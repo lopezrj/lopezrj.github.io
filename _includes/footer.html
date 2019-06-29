@@ -1,8 +1,6 @@
-<footer class="site-footer">
-
-  <div class="wrapper">
-
-    <div class="footer-col-wrapper">
+<footer class="site-footer container-fluid">
+  <div>
+    <div class="footer-wrapper">
       <div class="footer-col  footer-col-1">
         <ul class="contact-list">
           <li>{{ site.title }}</li>
@@ -27,10 +25,9 @@
           {% if site.twitter_username %}
           <li>
             <a href="https://twitter.com/{{ site.twitter_username }}">
-<span>
-  <img src="/assets/twitter.svg" alt="twitter" width="16px">
+              <span>
+                <img src="/assets/twitter.svg" alt="twitter" width="16px">
               </span>
-
               <span class="username">{{ site.twitter_username }}</span>
             </a>
           </li>
@@ -49,7 +46,5 @@
         <p class="text">{{ site.description }}</p>
       </div>
     </div>
-
   </div>
-
 </footer>

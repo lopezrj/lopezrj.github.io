@@ -1,8 +1,8 @@
 # Site settings
-title: Programming with R, Python, Ruby and Go
+title: Data Analysis with R
 email: lopezrj@hotmail.com
 description: > # this means to ignore newlines until "baseurl:"
-  Notes about programming in several languages.
+  Notes about using R.
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://lopezrj.github.io" # the base hostname & protocol for your site
 twitter_username: jekyllrb

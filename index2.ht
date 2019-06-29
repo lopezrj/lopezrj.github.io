@@ -1,0 +1,52 @@
+---
+layout: default
+---
+  <div class="container-fluid">
+    <br>
+    <div class="row">
+    <div class="col-sm-2 col-lg-2">
+      <div class="list-unstyled list-group">
+        {% assign sorted_tags = site.tags | sort %}
+        {% for tag in sorted_tags %}
+          {% assign t = tag | first %}
+          {% assign posts = tag | last %}
+            <a  class="blog-tag-item list-group-item list-group-item-action" id="{{ t }}-item primary" href onclick="filter('{{ t }}'); return false;">{{ t | downcase   }}
+          <!--   <span class="badge badge-primary">{{ posts | size }}</span> -->
+          </a> 
+        {% endfor %}
+        </div>
+        <br>
+  </div>
+<div class="col-sm-10 col-lg-10">
+ {% for tag in site.tags %}
+    {% assign t = tag | first %}
+    {% assign posts = tag | last %}
+    <div class="blog-list-container" id="{{ t }}-container">
+      <h3>{{t}}</h3>
+        <div class="row">
+          {% for post in posts %}
+            {% if post.tags contains t %}
+              <div class="col-sm-6">
+                <div class="card bg-light mb-3" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">
+                      <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                    </h5>
+                    <h6 class="card-subtitle">
+                      <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
+                    </h6>
+                  </div>
+                </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+        </div>
+    </div>
+  {% endfor %}
+ <!--
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+ -->
+ </div>
+</div>
+</div>
+ 
