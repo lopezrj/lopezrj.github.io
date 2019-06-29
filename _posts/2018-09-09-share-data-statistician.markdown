@@ -1,9 +1,9 @@
 ---
 layout: post
-title:  "Share Data with statisticians"
+title:  "2. Share Data with statisticians"
 date:   2018-09-09 12:57:27
 categories: r 
-tags: r
+tags: [data science]
 ---
 
 How to share data with a statistician
