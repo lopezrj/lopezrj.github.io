@@ -14,5 +14,5 @@ Once data is collected we have to describe it and organize it in rational ways. 
 
 The collected data are called the sample data. From that sample data we can estimate what happens in the whole population. For this process  we use STATISTICAL INFERENCE.
 
-Prediction of data requires that we identify a model that explains the collected outcome data. This means that we have to analyze the ouctome variable and related factors, creating a model that will allow us to predict new events.  For these purposes we use STATITICAL INFERENCE, REGRESSION TECHNIQUES AND MACHINE LEARNING.
+Prediction of data requires that we identify a model that explains the collected outcome data. This means that we have to analyze the ouctome variable and related factors, creating a model that will allow us to predict new events.  For these purposes we use STATISTICAL INFERENCE, REGRESSION TECHNIQUES AND MACHINE LEARNING.
 

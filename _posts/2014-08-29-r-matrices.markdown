@@ -6,7 +6,7 @@ categories: r programming matrices
 tags: [data types]
 ---
 
-## C. Matrices
+## A. Matrices
 
 A matrix is a collection of data elements arranged in a two-dimensional rectangular layout.
 
@@ -79,7 +79,7 @@ ___Useful links:___
 * [UCLA - R Library: Matrices and matrix computations in R](http://www.ats.ucla.edu/stat/r/library/matrix_alg.htm "R Library: Matrices and matrix computations in R")
 
 
-## D. Lists
+## B. Lists
 
 A list is a generic vector containing other objects. It allows objects of differente data type to reside together in the same container.
 
