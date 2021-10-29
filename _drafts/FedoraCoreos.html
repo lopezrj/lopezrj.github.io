@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fedora Coreos</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">  </head>
+    <link rel="stylesheet" href="/css/site.css">
+
+</head>
+<body>
+
+    <article class="doc">
+        <h1>Installing CoreOS on Bare Metal</h1>
+        <div id="preamble">
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>This guide provides instructions to install Fedora CoreOS to bare metal. Three options are available:</p>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Installing from live ISO</p>
+        </li>
+        <li>
+        <p>Installing from PXE</p>
+        </li>
+        <li>
+        <p>Installing from the container</p>
+        </li>
+        </ul>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a>Prerequisite</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>Before installing FCOS, you must have an Ignition configuration file and host it somewhere (e.g. using <code>python3 -m http.server</code>). If you do not have one, see <a href="../producing-ign/" class="page">Producing an Ignition File</a>.</p>
+        </div>
+        <div class="admonitionblock note">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+        </td>
+        <td class="content">
+        If you have servers with different types and/or number of hard drives, you must create a separate customized Ignition config for each machine (or machine class).  A good model is to have the common parts of the configuration factored out into a separate Ignition configuration which can be merged into (via HTTP or inline) the per-machine custom config.
+        </td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_installing_from_live_iso"><a class="anchor" href="#_installing_from_live_iso"></a>Installing from live ISO</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>To install FCOS onto bare metal using the live ISO, follow these steps:</p>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Download the latest ISO image from the <a href="https://getfedora.org/coreos/download?tab=metal_virtualized&amp;stream=stable">download page</a> or with podman (see <a href="https://coreos.github.io/coreos-installer/cmd/download/">documentation</a> for options):</p>
+        </li>
+        </ul>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre>podman run --privileged --pull=always --rm -v .:/data -w /data \
+            quay.io/coreos/coreos-installer:release download -s stable -p metal -f iso</pre>
+        </div>
+        </div>
+        <div class="admonitionblock note">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+        </td>
+        <td class="content">
+        You can boot the live ISO in either legacy BIOS or UEFI mode, regardless of what mode the OS will use once installed.
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Burn the ISO to disk. On Linux and macOS, you can use <code>dd</code>. On Windows, you can use <a href="https://rufus.ie/">Rufus</a> in "DD Image" mode.</p>
+        </li>
+        <li>
+        <p>Boot it on the target system. The ISO is capable of bringing up a fully functioning FCOS system purely from memory (i.e. without using any disk storage). Once booted, you will have access to a bash command prompt.</p>
+        </li>
+        <li>
+        <p>You can now run <code>coreos-installer</code>:</p>
+        </li>
+        </ul>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre>sudo coreos-installer install /dev/sda \
+            --ignition-url https://example.com/example.ign</pre>
+        </div>
+        </div>
+        <div class="paragraph">
+        <p>Once the installation is complete, you can simply <code>sudo reboot</code>. After rebooting, the first boot process begins. It is at this time that Ignition ingests the configuration file and provisions the system as specified.</p>
+        </div>
+        <div class="admonitionblock tip">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-tip" title="Tip"></i>
+        </td>
+        <td class="content">
+        Check out <code>coreos-installer install --help</code> for more options on how to install Fedora CoreOS.
+        </td>
+        </tr>
+        </table>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_installing_from_pxe"><a class="anchor" href="#_installing_from_pxe"></a>Installing from PXE</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>To install from PXE, follow these steps:</p>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Download an FCOS PXE kernel, initramfs, and rootfs image:</p>
+        </li>
+        </ul>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre>podman run --privileged --pull=always --rm -v .:/data -w /data \
+            quay.io/coreos/coreos-installer:release download -f pxe</pre>
+        </div>
+        </div>
+        <div class="admonitionblock note">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+        </td>
+        <td class="content">
+        Booting the live PXE image requires at least 2 GiB of RAM with the <code>coreos.live.rootfs_url</code> kernel argument, and 3 GiB otherwise. You can install in either legacy boot (BIOS) mode or in UEFI mode, regardless of what mode the OS will use once installed.
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Follow this example <code>pxelinux.cfg</code> for booting the installer images with PXELINUX:</p>
+        </li>
+        </ul>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre class="highlightjs highlight"><code>DEFAULT pxeboot
+        TIMEOUT 20
+        PROMPT 0
+        LABEL pxeboot
+            KERNEL fedora-coreos-32.20200726.3.1-live-kernel-x86_64
+            APPEND initrd=fedora-coreos-32.20200726.3.1-live-initramfs.x86_64.img,fedora-coreos-32.20200726.3.1-live-rootfs.x86_64.img coreos.inst.install_dev=/dev/sda coreos.inst.ignition_url=http://192.168.1.101:8000/config.ign
+        IPAPPEND 2</code></pre>
+        </div>
+        </div>
+        <div class="paragraph">
+        <p>For more details on how to use this information, see this <a href="https://dustymabe.com/2019/01/04/easy-pxe-boot-testing-with-only-http-using-ipxe-and-libvirt/">blog post</a> for testing a PXE installation via a local VM and <code>libvirt</code>.</p>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_installing_from_the_container"><a class="anchor" href="#_installing_from_the_container"></a>Installing from the container</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>You can use the <code>coreos-installer</code> <a href="https://quay.io/repository/coreos/coreos-installer">container</a> from an existing system to install to an attached block device. For example (substitute <code>docker</code> for <code>podman</code> if needed):</p>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo podman run --pull=always --privileged --rm \
+            -v /dev:/dev -v /run/udev:/run/udev -v .:/data -w /data \
+            quay.io/coreos/coreos-installer:release \
+            install /dev/vdb -i config.ign</code></pre>
+        </div>
+        </div>
+        <div class="paragraph">
+        <p>In this example, <code>coreos-installer</code> will download the latest stable FCOS metal image and install it onto <code>/dev/vdb</code>. It will then inject the Ignition file <code>config.ign</code> in the current directory into the image. Use <code>--help</code> to see all the available options.</p>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_downloading_and_mirroring_the_metal_image"><a class="anchor" href="#_downloading_and_mirroring_the_metal_image"></a>Downloading and mirroring the metal image</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>Sometimes, it&#8217;s necessary to download the metal image ahead of time and then have it passed locally to <code>coreos-installer</code> for installation. You can download the metal image directly from the <a href="https://getfedora.org/en/coreos/download?tab=metal_virtualized">FCOS download page</a>, or you can use <code>coreos-installer download</code>.</p>
+        </div>
+        <div class="admonitionblock tip">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-tip" title="Tip"></i>
+        </td>
+        <td class="content">
+        When installing via the live ISO or PXE, there is no need to download the metal image. It is already part of those environments.
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div class="paragraph">
+        <p>There are two metal images: one for 512b-sector disks (labeled "Raw" on the download page), and one for 4k-sector native disks (labeled "Raw (4K Native)"). Unless you know to be targeting a 4k native disk, use the 512b one, which is the most common. See <a href="https://en.wikipedia.org/wiki/Advanced_Format#4K_native">this page</a> for more information.</p>
+        </div>
+        <div class="paragraph">
+        <p>To download the 4kn native metal image with <code>coreos-installer download</code>, use the <code>--format 4k.raw.xz</code> switch.</p>
+        </div>
+        <div class="admonitionblock note">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+        </td>
+        <td class="content">
+        The metal image uses a hybrid partition layout which supports both BIOS and UEFI booting.
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div class="paragraph">
+        <p>When you&#8217;re finally ready to install FCOS, you can point it at your downloaded image using <code>coreos-installer install --image-url &lt;LOCAL_MIRROR&gt;</code> or <code>coreos-install --image-file &lt;PATH&gt;</code>.</p>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_live_pxe"><a class="anchor" href="#_live_pxe"></a>Live PXE</h2>
+        <div class="sectionbody">
+        <div class="paragraph">
+        <p>In this model, rather than performing a "persistent" installation to disk, you can run directly from RAM. This is useful in e.g. "diskless" scenarios.
+        The steps are similar to the above, just omit the <code>coreos.inst</code> arguments, and instead have the system itself run Ignition:</p>
+        </div>
+        <div class="listingblock">
+        <div class="content">
+        <pre class="highlightjs highlight"><code>DEFAULT pxeboot
+        TIMEOUT 20
+        PROMPT 0
+        LABEL pxeboot
+            KERNEL fedora-coreos-32.20200726.3.1-live-kernel-x86_64
+            APPEND initrd=fedora-coreos-32.20200726.3.1-live-initramfs.x86_64.img,fedora-coreos-32.20200726.3.1-live-rootfs.x86_64.img ignition.firstboot ignition.platform.id=metal ignition.config.url=http://192.168.1.101/config.ign systemd.unified_cgroup_hierarchy=0
+        IPAPPEND 2</code></pre>
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="sect1">
+        <h2 id="_pxe_rootfs_image"><a class="anchor" href="#_pxe_rootfs_image"></a>PXE rootfs image</h2>
+        <div class="sectionbody">
+        <div class="admonitionblock note">
+        <table>
+        <tr>
+        <td class="icon">
+        <i class="fa icon-note" title="Note"></i>
+        </td>
+        <td class="content">
+        Before August 2020, the Fedora CoreOS PXE image included two components: a <code>kernel</code> image and an <code>initramfs</code> image. Beginning in August, a third <code>rootfs</code> image was added. As of October 6, the <code>rootfs</code> image is mandatory and the live PXE system will not boot without it.
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div class="paragraph">
+        <p>To boot with the <code>rootfs</code> artifact, make one of the following changes to your PXE config:</p>
+        </div>
+        <div class="ulist">
+        <ul>
+        <li>
+        <p>Specify only the <code>initramfs</code> file as the initrd, and pass an HTTP(S) URL for the <code>rootfs</code> using the <code>coreos.live.rootfs_url=</code> kernel argument.</p>
+        </li>
+        <li>
+        <p>Specify both <code>initramfs</code> and <code>rootfs</code> files as initrds in your PXE configuration. This can be done via multiple <code>initrd</code> directives, or using additional <code>initrd=</code> parameters as kernel arguments.</p>
+        </li>
+        <li>
+        <p>Concatenate the <code>initramfs</code> and <code>rootfs</code> files together, and specify the combined file as the initrd.</p>
+        </li>
+        </ul>
+        </div>
+        <div class="paragraph">
+        <p>For more information on this change, see the <a href="https://github.com/coreos/fedora-coreos-tracker/issues/390">tracker issue</a>.</p>
+        </div>
+        
+        
+    
+</body>
+</html>
