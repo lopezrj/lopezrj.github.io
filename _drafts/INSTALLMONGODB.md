@@ -1,3 +1,10 @@
+---
+layout: post
+title:  "Install MongoDb"
+date:   2022-09-28 21:51:27
+categories: mongodb 
+tags: [databases]
+---
 # INSTALL MONGODB
 
 ## INSTALL DATABASE in UBUNTU 20.04
