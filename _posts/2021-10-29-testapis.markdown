@@ -3,7 +3,7 @@ layout: post
 title:  "Test APIs"
 date:   2021-10-29 09:51:27
 categories: programming api
-tags: [api json]
+tags: [api, json]
 ---
 
 # API for testing

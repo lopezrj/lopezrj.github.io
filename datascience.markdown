@@ -4,6 +4,13 @@ title: Data Science
 permalink: /datascience/
 ---
 
-# Data Science
-
-This is a file for data science
+<ul>
+{% for post in site.posts %}
+  {% if post.tags contains "data science" %}
+  <li>
+    <a href="{{ post.url }}">{{ post.title }}</a>
+    <span class="date">{{ post.date | date: "%B %-d, %Y"  }}</span>
+  </li>
+  {% endif %}
+{% endfor %}
+</ul>

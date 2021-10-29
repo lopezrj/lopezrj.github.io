@@ -3,7 +3,7 @@ layout: post
 title:  "R -  Matrices and Lists"
 date:   2014-08-29 11:44:27
 categories: r programming matrices
-tags: [data types]
+tags: [r, data science, data types]
 ---
 
 ## A. Matrices
