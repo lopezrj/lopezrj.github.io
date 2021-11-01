@@ -1,0 +1,39 @@
+INSTALL COUCHBASE DOCKER
+
+docker run -d --ulimit nofile=40960:40960  --ulimit core=100000000:100000000  --ulimit memlock=100000000:100000000  --name couchbase  -p 4369:4369  -p 8091-8096:8091-8096  -p 9100-9105:9100-9105  -p 9110-9118:9110-9118  -p 9120-9122:9120-9122   -p 9999:9999  -p 11209-11210:11209-11210  -p 21100-21229:21100-21229  -v /var/opt/couchbase/var:/opt/couchbase/var  --restart unless-stopped --net=host couchbase:community
+
+
+# IPTABLES
+root@cb2 [ ~ ]# iptables --list
+Chain INPUT (policy DROP)
+target     prot opt source               destination         
+ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:ssh
+ACCEPT     tcp  --  anywhere             anywhere             tcp dpt:epmd
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports 8091:8096,hp-pdl-datastr:9105,9110:9118,9120:9122,distinct
+ACCEPT     tcp  --  anywhere             anywhere             multiport dports 11209:11211,21100:21229
+
+Chain FORWARD (policy DROP)
+target     prot opt source               destination         
+DOCKER-USER  all  --  anywhere             anywhere            
+DOCKER-ISOLATION  all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere             ctstate RELATED,ESTABLISHED
+DOCKER     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+ACCEPT     all  --  anywhere             anywhere            
+
+Chain OUTPUT (policy DROP)
+target     prot opt source               destination         
+ACCEPT     all  --  anywhere             anywhere            
+
+Chain DOCKER (1 references)
+target     prot opt source               destination         
+
+Chain DOCKER-ISOLATION (1 references)
+target     prot opt source               destination         
+RETURN     all  --  anywhere             anywhere            
+
+Chain DOCKER-USER (1 references)
+target     prot opt source               destination         
+RETURN     all  --  anywhere             anywhere    
