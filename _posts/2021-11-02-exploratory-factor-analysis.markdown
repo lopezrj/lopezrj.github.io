@@ -6,7 +6,7 @@ categories: r
 tags: [r, data science]
 ---
 
-Factor analysis is a statistical method used to search for some unobserved variables called factors from observed variables called factors. There ar two variations: exploratory factor analysis (EFA) and confirmatory factor analysis (CFA).
+Factor analysis is a statistical method used to search for some unobserved variables called factors from observed variables called factors. There are two variations: exploratory factor analysis (EFA) and confirmatory factor analysis (CFA).
 
 We will review the preliminary steps to factor analysis including examining the data and the assumptions required for factor analysis and how to determine the number of factors to retain.
 
@@ -26,8 +26,8 @@ library(car)
 We first need to fetch sample data from the server. This is a raw data set, so each row row represents a person’s survery.
 
 ```
-url <- “https://raw.githubusercontent.com/housecricket/data/main/efa/sample1.csv"
-data_survey <- read.csv(url, sep = “,”)
+url <- "https://raw.githubusercontent.com/housecricket/data/main/efa/sample1.csv"
+data_survey <- read.csv(url, sep = ",")
 ```
 
 ### Describing the data
@@ -49,8 +49,8 @@ dim(data_survey)
 In our data frame, we have an ID variable in the first column. So, we can use a -1 in the column index to remove the first column and save our data to a new object.
 
 ```
-dat <- data_survey[ , -1] 
-head(dat)
+data <- data_survey[ , -1] 
+head(data)
 ```
 
 ### Correlation matrix
@@ -58,7 +58,7 @@ head(dat)
 We also should take a look at the correlations among our variables to determine if factor analysis is appropriate.
 
 ```
-datamatrix <- cor(dat[,c(-13)])
+datamatrix <- cor(data[,c(-13)])
 corrplot(datamatrix, method="number")
 ```
 
@@ -87,7 +87,7 @@ cortest.bartlett(X)
 Small values (8.84e-290 < 0.05) of the significance level indicate that a factor analysis may be useful with our data.
 
 ```
-det(cor(X)
+det(cor(X))
 ```
 
 We have a positive determinant, which means the factor analysis will probably run.
@@ -97,8 +97,7 @@ We have a positive determinant, which means the factor analysis will probably ru
 ### Scree Plot
 
 ```
-library(ggplot2)
-fafitfree <- fa(dat,nfactors = ncol(X), rotate = "none")
+fafitfree <- fa(data, nfactors = ncol(X), rotate = "none")
 n_factors <- length(fafitfree$e.values)
 scree     <- data.frame(
   Factor_n =  as.factor(1:n_factors), 
@@ -108,7 +107,8 @@ ggplot(scree, aes(x = Factor_n, y = Eigenvalue, group = 1)) +
   xlab("Number of factors") +
   ylab("Initial eigenvalue") +
   labs( title = "Scree Plot", 
-        subtitle = "(Based on the unreduced correlation matrix)")
+        subtitle = "(Based on the unreduced correlation matrix)")+
+  theme_minimal()
 ```
 
 ### Parallel Analysis
@@ -129,9 +129,9 @@ Parallel analysis suggests that the number of factors =  4 and the number of com
 fa.none <- fa(r=X, 
  nfactors = 4, 
  # covar = FALSE, SMC = TRUE,
- fm=”pa”, # type of factor analysis we want to use (“pa” is principal axis factoring)
+ fm="pa", # type of factor analysis we want to use ("pa" is principal axis factoring)
  max.iter=100, # (50 is the default, but we have changed it to 100
- rotate=”varimax”) # none rotation
+ rotate="varimax") # none rotation
 print(fa.none)
 ```
 
@@ -159,10 +159,9 @@ head(fa.var$scores)
 ### Labeling the data
 
 ```
-regdata <- cbind(dat[“QD”], fa.var$scores)
+regdata <- cbind(data["QD"], fa.var$scores)
 #Labeling the data
-names(regdata) <- c(“QD”, “F1”, “F2”,
- “F3”, “F4”)
+names(regdata) <- c("QD", "F1", "F2", "F3", "F4")
 head(regdata)
 ```
 
@@ -196,10 +195,10 @@ vif(model.fa.score)
 
 ```
 #Model Performance metrics:
-pred_test <- predict(model.fa.score, newdata = test, type = “response”)
+pred_test <- predict(model.fa.score, newdata = test, type = "response")
 pred_test
 test$QD_Predicted <- pred_test
-head(test[c(“QD”,”QD_Predicted”)], 10)
+head(test[c("QD","QD_Predicted")], 10)
 ```
 
 
