@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Types of Statistical Analysys"
+title:  "Types of Statistical Analysis"
 date:   2014-06-30 12:02:03
 categories: [data science]
 tags: [data science]
