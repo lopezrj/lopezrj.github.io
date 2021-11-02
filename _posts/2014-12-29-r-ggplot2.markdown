@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "ggplot2"
+title:  "R - ggplot2"
 date:   2014-12-29 10:44:27
 categories: graphics ggplot2 programming
 tags: [r, data science, graphics]
