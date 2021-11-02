@@ -14,7 +14,7 @@ Descriptive Analysis is the type of analysis of data that helps describe, show o
 
  It gives you a conclusion of the distribution of your data, helps you detect typos and outliers, and enables you to identify similarities among variables, thus making you ready for conducting further statistical analyses.
 
- ## Techniques
+## Techniques
 
  Data aggregation and data mining are two techniques used in descriptive analysis to churn out historical data. In Data aggregation, data is first collected and then sorted in order to make the datasets more manageable.
  
