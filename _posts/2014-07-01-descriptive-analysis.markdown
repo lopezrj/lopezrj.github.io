@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Descriptive Analysys"
-date:   2014-06-29 12:02:03
+date:   2014-07-01 12:02:03
 categories: [data science]
 tags: [data science]
 ---
