@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "R - Exploratory Factor Analysis"
-date:   2014-08-28 21:51:27
+date:   2021-10-02 01:51:27
 categories: r
 tags: [r, data science]
 ---
