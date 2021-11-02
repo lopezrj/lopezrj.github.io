@@ -6,7 +6,7 @@ categories: [data science]
 tags: [data science]
 ---
 
-# Data Science
+## Data Science
 
 Data science tries to create models to analyze and predict events.
 
@@ -18,7 +18,7 @@ The collected data are called the sample data. From that sample data we can esti
 
 Prediction of data requires that we identify a model that explains the collected outcome data. This means that we have to analyze the ouctome variable and related factors, creating a model that will allow us to predict new events.  For these purposes we use __STATISTICAL INFERENCE__, __REGRESSION TECHNIQUES__ and __MACHINE LEARNING__.
 
-# Data
+## Data
 
 There are 2 types of data:
 * Structured
@@ -28,13 +28,13 @@ _Structured data_ are data ordered in form of tables. There are columns and rows
 
 _Unstructured Data_ includes video data on the net, audio, text data, social media data.
 
-## Types of Structured Data
+### Types of Structured Data
 
 Ther are two types of structured data:
 * Categorical (nominal and ordinal data)
 * Quantitative (interval and ratio scale)
 
-### Categorical data
+#### Categorical data
 
 This data consists of ‘categories’ or labels. For example, the variable ‘Sex’ is categorical as we have 2 categories: male and female. 
 
@@ -44,7 +44,7 @@ Categorical data can be nominal or ordinal.
 
 * Ordinal data — consists of labels that can be ordered. Can also contain both textual and numerical data. For example, the values in a column that contains the rating of a restaurant, are ordinal. If the rating scale is from 1 to 5 with 1 being the worst rating and 5 being the best, we can see that there is an order. Another example is the grade values such as A+, B-, C. These labels also have an order attached to them as we know A+ is a better grade than C.
   
-### Quantitative Data
+#### Quantitative Data
 
 Quantitative data is any numeric data that can either take on a discrete value or a continuous value.
 
@@ -56,5 +56,6 @@ A continuous value (infinite) is obtained by measuring. For example, height, wei
 
 * Ratio scale — consists of values that have all properties of interval data (fixed scale), contains a ‘true zero’ value (zero indicates no measurement unlike 0 degrees celsius), no values below zero, the ratio of 2 values is meaningful, and the values can be used to perform basic math calculations. For example, weight, length, height, and area all fall under the ratio scale.
 
+---
 
 
