@@ -10,7 +10,7 @@ Factor analysis is a statistical method used to search for some unobserved varia
 
 We will review the preliminary steps to factor analysis including examining the data and the assumptions required for factor analysis and how to determine the number of factors to retain.
 
-In R we need to use the packages `psych` [link](https://cran.r-project.org/web/packages/psych/index.html) and `corrplot` [link](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html). For plotting we use `ggplot2`.
+In R we need to use the packages `psych` [link](https://cran.r-project.org/web/packages/psych/index.html), `corrplot` [link](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html)and `rms` [link](https://rdocumentation.org/packages/rms/versions/6.2-0) . For plotting we use `ggplot2`.
 
 ```
 library(psych)
@@ -128,8 +128,8 @@ Parallel analysis suggests that the number of factors =  4 and the number of com
 fa.none <- fa(r=X, 
  nfactors = 4, 
  # covar = FALSE, SMC = TRUE,
- fm="pa", # type of factor analysis we want to use ("pa" is principal axis factoring)
- max.iter=100, # (50 is the default, but we have changed it to 100
+ fm="pa", # type of factor analysis ("pa" is principal axis factoring)
+ max.iter=100, # (default is 50)
  rotate="varimax") # none rotation
 print(fa.none)
 ```
@@ -137,7 +137,9 @@ print(fa.none)
 ### Factor analysis using the factanal method
 
 ```
-factanal.none <- factanal(X, factors=4, scores = c("regression"), rotation = "varimax")
+factanal.none <- factanal(X, factors=4, 
+  scores = c("regression"), 
+  rotation = "varimax")
 print(factanal.none)
 ```
 
@@ -146,6 +148,8 @@ print(factanal.none)
 ```
 fa.diagram(fa.none)
 ```
+
+---
 
 ## 5. Regression analysis
 
