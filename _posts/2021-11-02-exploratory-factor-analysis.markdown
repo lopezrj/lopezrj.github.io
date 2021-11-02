@@ -10,16 +10,15 @@ Factor analysis is a statistical method used to search for some unobserved varia
 
 We will review the preliminary steps to factor analysis including examining the data and the assumptions required for factor analysis and how to determine the number of factors to retain.
 
-In R we need to use the packages [`psych`](https://cran.r-project.org/web/packages/psych/index.html) and [`corrplot`](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html). For plotting we use `ggplot2` and sample data is from `cars`.
+In R we need to use the packages `psych` [link](https://cran.r-project.org/web/packages/psych/index.html) and `corrplot` [link](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html). For plotting we use `ggplot2`.
 
 ```
 library(psych)
 library(corrplot)
 library(ggplot2)
-library(car)
 ```
 
-## Dataset
+## 1. Describing Data
 
 ### Fetching data from the server
 
@@ -62,7 +61,7 @@ datamatrix <- cor(data[,c(-13)])
 corrplot(datamatrix, method="number")
 ```
 
-## The Factorability of the Data
+## 2. Factorability of the Data
 
 ```
 X <- data[,-c(13)]
@@ -92,7 +91,7 @@ det(cor(X))
 
 We have a positive determinant, which means the factor analysis will probably run.
 
-## The Number of Factors to Extract
+## 3. Number of Factors to Extract
 
 ### Scree Plot
 
@@ -121,7 +120,7 @@ parallel <- fa.parallel(X)
 
 Parallel analysis suggests that the number of factors =  4 and the number of components =  3
 
-## Conducting the Factor Analysis
+## 4. Conducting the Factor Analysis
 
 ### Factor analysis using fa method
 
@@ -148,7 +147,7 @@ print(factanal.none)
 fa.diagram(fa.none)
 ```
 
-## Regression analysis
+## 5. Regression analysis
 
 Scores for all the rows
 
