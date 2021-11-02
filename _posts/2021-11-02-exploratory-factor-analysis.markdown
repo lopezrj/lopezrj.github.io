@@ -10,7 +10,7 @@ Factor analysis is a statistical method used to search for some unobserved varia
 
 We will review the preliminary steps to factor analysis including examining the data and the assumptions required for factor analysis and how to determine the number of factors to retain.
 
-In R we need to use the packages `psych`, `corrplot` and `psynch`. For plotting we use `ggplot2` and sample data is from `cars`.
+In R we need to use the packages [`psych`](https://cran.r-project.org/web/packages/psych/index.html) and [`corrplot`](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html). For plotting we use `ggplot2` and sample data is from `cars`.
 
 ```
 library(psych)
@@ -76,9 +76,9 @@ The Kaiser-Meyer-Olkin (KMO) used to measure sampling adequacy is a better measu
 KMO(r=cor(X))
 ```
 
-According to Kaiser’s (1974) guidelines, a suggested cutoff for determining the factorability of the sample data is KMO ≥ 60. The total KMO is 0.83, indicating that, based on this test, we can probably conduct a factor analysis.
+According to Kaiser’s 1974 guidelines (Kaiser, H.F. An index of factorial simplicity. Psychometrika 39, 31–36 (1974)), a suggested cutoff for determining the factorability of the sample data is KMO ≥ 60. The total KMO is 0.83, indicating that, based on this test, we can probably conduct a factor analysis.
 
-Bartlett’s Test of Sphericity
+### Bartlett’s Test of Sphericity
 
 ```
 cortest.bartlett(X)
