@@ -10,7 +10,7 @@ tags: [data science]
 
 Data science tries to create models to analyze and predict events.
 
-To create those models we  need to observe actual events and collect data about them.
+To create those models we  need to observe actual events and collect __DATA__ about them.
 
 Once data is collected we have to describe it and organize it in rational ways. This is called __DESCRIPTIVE ANALYSIS__.
 
