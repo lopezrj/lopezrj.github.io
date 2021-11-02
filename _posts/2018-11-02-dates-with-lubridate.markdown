@@ -26,27 +26,31 @@ A list of UTC zones can be found [here](https://en.wikipedia.org/wiki/List_of_tz
 
 ### 1. From strings to date objects
 
-To create time and data objects from character objects, we can use the following functions: ymd_hms, ymd, mdy and dmy
+To create time and data objects from character objects, we can use the following functions: `ymd_hms`, `ymd`, `mdy` and `dmy`
 
-ymd_hms
+__ymd_hms__
+
 ```
 ymd_hms("2019-06-04 12:00:00", tz = "America/Mexico_City")
 #> [1] "2019-06-04 12:00:00 CDT"
 ```
 
-ymd
+__ymd__
+
 ```
 ymd("20190604")
 #> [1] "2019-06-04"
 ```
 
-mdy
+__mdy__
+
 ```
 mdy("06-04-2019")
 #> [1] "2019-06-04"
 ```
 
-dmy
+__dmy__
+
 ```
 dmy("04/06/2019")
 #> [1] "2019-06-04"
@@ -54,8 +58,9 @@ dmy("04/06/2019")
 
 ### 2. From individual components to date objects
 
+__make_datetime__
+
 ```
-make_datetime
 year = 2019
 month = 4
 day = 10
@@ -67,7 +72,8 @@ make_datetime(year, month, day, hour, minute)
 
 ### 3. From numeric values to date objects
 
-To convert numeric values to date object we use the as_date function.
+To convert numeric values to date object we use the `as_date` function.
+
 ```
 as_datetime(today())
 #> [1] "2019-01-08 UTC"
@@ -81,7 +87,7 @@ as_date(0)
 
 ## C. Helper functions
 
-The lubridate package provides a set of functions for extraction and modifications of the elements of time and date of objects: yday, qday, day, wday, hour, round_date, floor_date, ceiling_date. Also simple functions to get and set components of a date-time, such as year, month, mday, hour, minute and second.
+The lubridate package provides a set of functions for extraction and modifications of the elements of time and date of objects: `yday`, `qday`, `day`, `wday`, `hour`, `round_date`, `floor_date`, `ceiling_date`. Also simple functions to get and set components of a date-time, such as year, month, mday, hour, minute and second.
 
 ```
 d <- now()  ## 2019-06-12 21:05:02 CST
@@ -136,7 +142,7 @@ time.interval
 #> [1] 2018-03-11 05:21:00 CST--2018-03-12 05:21:00 CST
 ```
 
-To create a Duration between these two dates, we can use the as.duration function.
+To create a Duration between these two dates, we can use the `as.duration` function.
 
 ```
 time.duration <- as.duration(time.interval)
@@ -144,13 +150,13 @@ time.duration
 #> [1] "86400s (~1 days)"
 ```
 
-We can create a Period from an Interval using the as.period function.
+We can create a Period from an Interval using the `as.period` function.
 
 ```
 time.period <- as.period(time.interval)
 time.period
 #> [1] "1d 0H 0M 0S"
 ```
-More information can be found at the official web site for the lubridate package.
+More information can be found at the [official web site](https://lubridate.tidyverse.org/index.html) for the lubridate package.
 
-A cheat sheet for the lubridate packages can be found here.
+A cheat sheet for the lubridate packages can be found [here](https://rawgit.com/rstudio/cheatsheets/master/lubridate.pdf).
