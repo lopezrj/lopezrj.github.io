@@ -15,6 +15,7 @@ In R we need to use the packages `psych` [link](https://cran.r-project.org/web/p
 ```
 library(psych)
 library(corrplot)
+library(rms) # used for vif
 library(ggplot2)
 ```
 
@@ -188,7 +189,7 @@ summary(model.fa.score)
 
 Our model equation can be written as: Y = 3.55309 + 0.72628 x F1 + 0.29138 x F2 + 0.06935 x F3 + 0.62753 x F4
 
-### Check vif
+### Check Variance Inflation Factor
 
 ```
 vif(model.fa.score)
