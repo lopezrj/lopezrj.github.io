@@ -6,8 +6,6 @@ categories: [data science]
 tags: [data science]
 ---
 
-## Descriptive Analysis
-
 The conversion of raw data into a form that will make it easy to understand & interpret, ie., rearranging, ordering, and manipulating data to provide insightful information about the provided data.
  
 Descriptive Analysis is the type of analysis of data that helps describe, show or summarize data points in a constructive way such that patterns might emerge that fulfill every condition of the data.

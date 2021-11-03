@@ -6,8 +6,6 @@ categories: [data science]
 tags: [data science]
 ---
 
-## Data Science
-
 Data science tries to create models to analyze and predict events.
 
 To create those models we  need to observe actual events and collect __DATA__ about them.
