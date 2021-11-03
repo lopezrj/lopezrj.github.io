@@ -32,8 +32,8 @@ Steps to create VirtualBox VM for Fcos are as follows
 * copy ignition file from host to guest
 * install Fedora CoreOS
 
-### 
-Create Ignition File
+### Create Ignition File
+
 On first boot, Fcos uses a json file known as Ignition file to configure and provision the new system. With text editor, create yaml file base-config.yaml with following contents,
 
 {% highlight yaml %}
@@ -378,11 +378,11 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 watch kubectl get pods --all-namespaces 
 {% endhighlight %}
 
-Watch cluster creation till all pods reach Running state except coredns pods which reach ClusterCreating or Pending state.
+Watch cluster creation till all pods reach `Running` state except coredns pods which reach `ClusterCreating` or `Pending` state.
 
 ### Install Pod Network Add-on
 
-Pods communicates through Container Network Interface (CNI) based Pod Network Add-on and Calico is one such add-on. To install calico, download calico.yaml and apply in master node.
+Pods communicates through `Container Network Interface (CNI)` based Pod Network Add-on and Calico is one such add-on. To install calico, download `calico.yaml` and apply in master node.
 
 {% highlight bash %}
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
@@ -401,9 +401,11 @@ Now, master node, with K8s api server and control-plane, is ready and kubectl ge
 
 If something goes wrong during init, clean up and revert back with sudo kubeadm reset and try init again.
 
+For more info: [Calico Add on](https://docs.projectcalico.org/getting-started/kubernetes/self-managed-onprem/onpremises)
+
 ## Setup worker node
 
-Create second clone of fcos and name it worker1. Steps are same as explained when we cloned master, but with following changes,
+Create second clone of `fcos` and name it `worker1`. Steps are same as explained when we cloned master, but with following changes,
 
 In virt-clone command,
 
@@ -418,21 +420,21 @@ In nmcli connection mod command,
 
 * ipv4.addresses: 192.168.99.102/24
 
-Reboot worker1 and login with ssh k@192.168.99.102.
+Reboot worker1 and login with `ssh k@192.168.99.102`.
 
 ## Join the K8s Cluster
 
 As already explained in master node section, we can’t use kubeadm join cli method; so, we go with config file method.
 
-To join the cluster, worker node needs token and discovery-token-ca-cert-hash which was part of join command displayed when we setup master. If you haven’t noted down the join command, then find out token and cert-hash with these commands in the master node.
+To join the cluster, worker node needs `token` and `discovery-token-ca-cert-hash` which was part of join command displayed when we setup master. If you haven’t noted down the join command, then find out token and cert-hash with these commands in the `master` node.
 
-```
+{% highlight bash %}
 # run in master node to get token
 kubeadm token list
 
 # run in master node to get caCertHash
 openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | openssl dgst -sha256 -hex | sed 's/^.* //'
-```
+{% endhighlight %}
 
 Next, in worker1 node, assign token and cert-hash values to variable and create kubeadm-join.yaml config file.
 
@@ -462,15 +464,15 @@ cat kubeadm-join.yaml
 
 To join the worker1 to cluster, execute sudo kubeadm join --config kubeadm-join.yaml in worker1 node.
 
-On master run watch kubectl get pods --all-namespaces . It may take about 2 to 3 minutes as it pulls calico and K8s images. Once all pods are up and running, fire kubectl get nodes and both master and worker1 are part of K8s cluster and in Ready state.
+On master run watch `kubectl get pods --all-namespaces`. It may take about 2 to 3 minutes as it pulls calico and K8s images. Once all pods are up and running, fire `kubectl get nodes` and both master and worker1 are part of K8s cluster and in `Ready` state.
 
 Clone one more node, worker2, from base VM and join it to cluster.
 
-For more info: K8s - Join your nodes
+For more info: [K8s - Join your nodes](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/#join-nodes)
 
 Via systemctl, we have enabled docker and kubelet services to start on system boot. Once docker and kubelet are up, K8s cluster starts and synchronizes on its own.
 
 ## Access Cluster from Host
-While it is fine to administer the cluster from master, it is quite convenient to do it from the host. For that, all you have to do is to install kubectl in the host and copy the $HOME/.kube/config file from master node to hosts $HOME/.kube directory and you are good to go.
+While it is fine to administer the cluster from master, it is quite convenient to do it from the host. For that, all you have to do is to install `kubectl` in the host and copy the `$HOME/.kube/config` file from master node to hosts `$HOME/.kube` directory and you are good to go.
 
  
