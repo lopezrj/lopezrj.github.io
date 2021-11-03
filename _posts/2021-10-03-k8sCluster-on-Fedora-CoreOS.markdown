@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Kubernetes Cluster on Fedora Coreos"
-date:   2014-06-29 12:02:03
+date:   2021-10-03 12:02:03
 categories: [devops]
 tags: [devops, k8s]
 ---
@@ -94,15 +94,15 @@ In the connection definition, interface and id may vary depending on the network
 
 Now, compile yaml definition to ignition format. If you have docker, then you can compile with following command.
 
-```
+{% highlight bash %}
 docker run -i --rm quay.io/coreos/fcct:release --pretty --strict < base-config.yaml > base-config.ign
-```
+{% endhighlight %}
 
 In case, docker is not installed in your PC, then download appropriate fcct binary from [Coreos Fcct Releases](https://github.com/coreos/fcct/releases) and compile the yaml,
 
-```
+{% highlight bash %}
 fcct --pretty --strict < base-config.yaml > base-config.ign
-```
+{% endhighlight %}
 
 Once you are ready with the file, move on to create base VM.
 
@@ -123,7 +123,7 @@ The host-only network is used to open ssh connection from host to guest. By defa
 
 Next, find out the network interface that is used by the your PC (host) to connect to the internet. For example, I use a wifi connection and its interface is something like wlx98dexxxx.
 
-Create VM named fcos with following configuration,
+Create VM named `fcos` with following configuration,
 
 * Type: Linux
 * Version: Linux 64 bit
@@ -138,9 +138,9 @@ Enable net connection on host and start the VM. In Select Startup Disk window, c
 
 ### Get Ignition File to Guest
 
-Earlier, we had created Ignition file base-config.ign on host. To install OS, we have to get it from host to guest. Easiest option is to use python http server,
+Earlier, we had created Ignition file `base-config.ign` on host. To install OS, we have to get it from host to guest. Easiest option is to use python http server,
 
-```
+{% highlight bash %}
 # on host, run from the ignition file's directory 
 python3 -m http.server
 
@@ -152,13 +152,13 @@ ip a
 sudo ip addr add 192.168.99.100/24 dev enp0s3
 
 curl -LO 192.168.99.1:8000/base-config.ign
-```
+{% endhighlight %}
 
 As we have disabled DHCP while creating the virtual network, set static IP and the use curl. The ip addr add temporarily sets the static ip to interface. However, it is not stable, may unset before you do curl before you try scp. Use up-arrow, again set the ip and retry scp. I know this not elegant solution, but with couple of tries you should be able to copy the file to guest.
 
 Alternatively, if you have ssh server on host, use scp to get the file to guest.
 
-```
+{% highlight bash %}
 # on host - start open ssh server
 sudo systemctl start ssh
 
@@ -171,7 +171,7 @@ sudo ip addr add 192.168.99.100/24 dev ens3
 
 # copy ignition file from host to VM
 scp <user_id>@192.168.99.1:base-config.ign .
-```
+{% endhighlight %}
 
 ## Install Fedora CoreOS
 
@@ -179,32 +179,32 @@ At this point, Fedora CoreOS Live Environment runs entirely from system memory a
 
 VM boots to CoreOS Live Environment which runs completely from memory and we have to manually install the os to disk. To install Fcos, run following command,
 
-```
+{% highlight bash %}
 sudo coreos-installer install /dev/sda -i base-config.ign
-```
+{% endhighlight %}
 
-It extracts the os (around 3GB) from image and copies it to VM storage file. Installation completes within 2 minutes and after installation, don’t reboot; instead shutdown with sudo init 0.
+It extracts the os (around 3GB) from image and copies it to VM storage file. Installation completes within 2 minutes and after installation, don’t reboot; instead shutdown with `sudo init 0`.
 
-Once guest is shutdown, in VM Manager, open its Settings -> Storage and select Fedora-coreos-xxxx.iso installation media and type - key to remove the attached ISO image; otherwise on VM reboot, you will land again in Live Environment instead of installed OS. Start the guest and on first boot, fcos provisions the new system by running the base-config.ign and presents the login prompt. Login with user id k and the passwd your have provided to create the password hash earlier.
+Once guest is shutdown, in VM Manager, open its Settings -> Storage and select Fedora-coreos-xxxx.iso installation media and type - key to remove the attached ISO image; otherwise on VM reboot, you will land again in Live Environment instead of installed OS. Start the guest and on first boot, fcos provisions the new system by running the `base-config.ign` and presents the login prompt. Login with user id k and the passwd your have provided to create the password hash earlier.
 
 Troubleshoot:
 
 fcos hangs on first boot after os installation: cause, syntax error in base-config.ign. Correct the ignition file and delete and create new VM; start fresh installation.
 It is cumbersome to work in guest console, rather I prefer to work from host console with ssh. Run ip a on guest console to find its ip and use it to make ssh connection from host.
 
-```
+{% highlight bash %}
 ssh k@192.168.99.100
-```
+{% endhighlight %}
 
 ## Install Packages
 
 Kubeadm has dependency on conntrack and ethtool packages, so install them with,
 
-```
+{% highlight bash %}
 sudo rpm-ostree install conntrack ethtool
 
 sudo systemctl reboot
-```
+{% endhighlight %}
 
 In case of “error: Transaction in progress: …”, wait for any running rpm-ostree process to finish. This happens when there is a new release of Fcos and node automatically upgrades to new version. As last resort, you can cancel transaction with sudo rpm-ostree cancel.
 
@@ -213,7 +213,7 @@ The rpm-ostree is the package manager used by Fcos, which installs packages as l
 ## Setup Docker
 The container runtime, Docker uses either systemd or cgroupfs as cgroup managers. For a stable K8s cluster, it is advised to use systemd as cgroup manager. On guest, run
 
-```
+{% highlight bash %}
 sudo systemctl start docker
 sudo systemctl enable docker
 
@@ -243,14 +243,15 @@ EOF
 
 sudo systemctl daemon-reload
 sudo systemctl restart docker
-```
+{% endhighlight %}
+
 Check the docker setup by executing docker run hello-world
 
 ## Install K8s Toolbox
 
 The K8s toolbox consists of kubeadm, kubectl and kubelet. Install them with,
 
-```
+{% highlight bash %}
 CNI_VERSION="v0.8.2"
 sudo mkdir -p /opt/cni/bin
 curl -L "https://github.com/containernetworking/plugins/releases/download/${CNI_VERSION}/cni-plugins-Linux-amd64-${CNI_VERSION}.tgz" | sudo tar -C /opt/cni/bin -xz
@@ -272,24 +273,24 @@ sudo mkdir -p /etc/systemd/system/kubelet.service.d
 curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSION}/cmd/kubepkg/templates/latest/deb/kubeadm/10-kubeadm.conf" | sed "s:/usr/bin:${DOWNLOAD_DIR}:g" | sudo tee /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
 sudo systemctl enable --now kubelet
-```
+{% endhighlight %}```
 
 Allow iptables see bridged traffic,
 
-```
+{% highlight bash %}
 cat <<EOF | sudo tee /etc/sysctl.d/K8s.conf
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 
 sudo sysctl --system
-```
+{% endhighlight %}
 
-Shut it down with sudo init 0. We are done with the base VM, no more install or setup. We are ready to clone it to create other nodes - master and workers.
+Shut it down with `sudo init 0`. We are done with the base VM, no more install or setup. We are ready to clone it to create other nodes - master and workers.
 
 ## Clone Master Node
 
-Create a clone of fcos with these options,
+Create a clone of `fcos` with these options,
 
 * Name: master
 * Clone Type: Full clone
@@ -297,8 +298,9 @@ Create a clone of fcos with these options,
 * Keep Disk Names: unchecked
 * Keep Hardware UUIDs: unchecked
 
-Start the master and login through ssh k@192.168.99.100 and execute following commands,
-```
+Start the master and login through `ssh k@192.168.99.100` and execute following commands,
+
+{% highlight bash %}
 sudo hostnamectl set-hostname master
 
 # ensure that product_uuid is unique
@@ -322,15 +324,15 @@ sudo nmcli connection mod <connection-name> \
 
 sudo systemctl restart NetworkManager
 sudo systemctl reboot   
-```
+{% endhighlight %}
 
-After VM reboot, login to master with the new ip ssh k@192.168.99.101.
+After VM reboot, login to master with the new ip `ssh k@192.168.99.101`.
 
 ## Setup Master Node with Control Plane
 
 On master node, we initialize the kubeadm so that it works as K8s API Server and control plane. Normally, master node is initialized with `sudo kubeadm init --apiserver-advertise-address=192.168.99.101 --pod-network-cidr=192.168.0.0/16` . In FCOS, this is not going to work as the Fcos `/usr` directory is read-only and kublet-plugins are not able to write to it. To change kubelet plugins directory, we need to use a config file to pass initialization configs to kubeadm. Create config file, kubeadm-init.yaml, by executing following command in master node.
 
-```
+{% highlight bash %}
 cat << EOF > kubeadm-init.yaml
 apiVersion: kubeadm.k8s.io/v1beta2
 kind: InitConfiguration
@@ -352,7 +354,7 @@ apiServer:
     advertise-address: 192.168.99.101
 
 EOF
-```
+{% endhighlight %}
 
 It indicates that,
 
@@ -362,26 +364,27 @@ It indicates that,
 
 With the config file, run kubeadm init on master node.
 
-```
+{% highlight bash %}
 sudo kubeadm init --config kubeadm-init.yaml
-```
+{% endhighlight %}
 
 Init pulls K8s images and starts various pods. At the end of kubeadm init messages, a join command is displayed; save it somewhere as we need it to join worker nodes to cluster. Copy the admin.conf file to your $HOME/.kube directory so that you can run kubectl commands as normal user.
 
-```
+{% highlight bash %}
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 watch kubectl get pods --all-namespaces 
-```
+{% endhighlight %}
 
 Watch cluster creation till all pods reach Running state except coredns pods which reach ClusterCreating or Pending state.
 
-Install Pod Network Add-on
+### Install Pod Network Add-on
+
 Pods communicates through Container Network Interface (CNI) based Pod Network Add-on and Calico is one such add-on. To install calico, download calico.yaml and apply in master node.
 
-```
+{% highlight bash %}
 curl https://docs.projectcalico.org/manifests/calico.yaml -O
 
 # replace all `/usr/libexec` to `/opt/libexec`
@@ -390,7 +393,7 @@ sed -i 's/usr\/libexec/opt\/libexec/g' calico.yaml
 kubectl apply -f calico.yaml
 
 watch kubectl get pods --all-namespaces 
-```
+{% endhighlight %}
 
 It pulls calico container images. Once Calico pods are up and running the coredns pods should change to Running state.
 
@@ -418,6 +421,7 @@ In nmcli connection mod command,
 Reboot worker1 and login with ssh k@192.168.99.102.
 
 ## Join the K8s Cluster
+
 As already explained in master node section, we can’t use kubeadm join cli method; so, we go with config file method.
 
 To join the cluster, worker node needs token and discovery-token-ca-cert-hash which was part of join command displayed when we setup master. If you haven’t noted down the join command, then find out token and cert-hash with these commands in the master node.
