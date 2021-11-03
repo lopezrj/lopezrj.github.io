@@ -78,16 +78,17 @@ storage:
 
 On first boot, the ignition file provisions
 
-a new user k
-adds the user to docker, wheel and sudo groups
-sets hostname to fcos
-reduces audit level to warn so that debug messages are not spewed to console
-configures static IP for the interface.
-In the yaml file you have to replace two fields - password_hash, sshAuthorizedKeys.
+* a new user `k`
+* adds the user to docker, wheel and sudo groups
+* sets hostname to fcos
+* reduces audit level to warn so that debug messages are not spewed to console
+* configures static IP for the interface.
 
-For password_hash, generate password hash with mkpasswd --method=md5crypt , enter some password of your choice and copy the generated hash to password_hash field. Windows users have to use Cygwin mkpasswd utility to generate the hash.
+In the yaml file you have to replace two fields - `password_hash`, `sshAuthorizedKeys`.
 
-The sshAuthorizedKeys allows password less login via ssh and in case, you don’t need this feature you may remove the field from the file. Otherwise, copy the content of your ssh public key to sshAuthorizedKeys field. On Linux, you can find it in $HOME/.ssh/id_rsa.pub or you can create a new one with ssh-keygen. In Windows, use Putty to generate and manage ssh key.
+For `password_hash`, generate password hash with `mkpasswd --method=md5crypt` , enter some password of your choice and copy the generated hash to password_hash field. Windows users have to use Cygwin mkpasswd utility to generate the hash.
+
+The `sshAuthorizedKeys` allows password less login via ssh and in case, you don’t need this feature you may remove the field from the file. Otherwise, copy the content of your ssh public key to sshAuthorizedKeys field. On Linux, you can find it in $HOME/.ssh/id_rsa.pub or you can create a new one with ssh-keygen. In Windows, use Putty to generate and manage ssh key.
 
 In the connection definition, interface and id may vary depending on the network setup. Only way to confirm is to create a test VM and boot Fedora CoreOS and find out the interface name with ip a and connection id with nmcli connection.
 
