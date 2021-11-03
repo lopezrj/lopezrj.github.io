@@ -275,7 +275,7 @@ curl -sSL "https://raw.githubusercontent.com/kubernetes/release/${RELEASE_VERSIO
 sudo systemctl enable --now kubelet
 {% endhighlight %}
 
-Allow iptables see bridged traffic,
+Allow iptables to see bridged traffic,
 
 {% highlight bash %}
 cat <<EOF | sudo tee /etc/sysctl.d/K8s.conf
