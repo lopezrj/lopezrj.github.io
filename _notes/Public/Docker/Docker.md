@@ -1,8 +1,8 @@
 ---
 title: Docker
-feed: hide
+feed: show
 date: 01-07-2024
-permalink: /docker
+permalink: /Docker/docker
 format: list
 ---
 
