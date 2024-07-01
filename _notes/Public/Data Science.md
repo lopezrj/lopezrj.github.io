@@ -2,7 +2,6 @@
 title: Data Science
 feed: show
 date: 01-07-2024
-permalink: /datascience
 format: list
 ---
 
