@@ -1,0 +1,114 @@
+---
+layout: post
+title:  "R - ggplot2"
+date:   2014-12-29 10:44:27
+categories: graphics ggplot2 programming
+tags: [r, data science, graphics]
+---
+
+## A. Grammar or graphics
+
+When creating a plot we start with __data__.
+Given four variables A,B,C and D, the first step in making this plot is to create a new dataset that reflects the mapping of x-position to A, y-position to C, and shape to D. x-position, y-position, and shape are examples of __aesthetics__, things that we can perceive on the graphic.
+
+The next thing we need to do is to convert these numbers measured in data units to numbers measured in physical units, things that the computer can display. To do that we need to know that we are going to use linear scales and a Cartesian coordinate system. We can then convert the data units to aesthetic units, which have meaning to the underlying drawing system. These transformations are the responsibility of __scales__. 
+
+Finally, we need to render these data to create the graphical objects that are displayed on screen or paper. To create a complete plot we need to combine graphical objects from three sources: the data, represented by the point geom; the scales and coordinate system, which generates axes and legends so that we can read values from the graph; and the plot annotations, such as the background and plot title. Combining and displaying these graphical objects produces the final plot.
+
+Faceting is a more general case of the techniques known as conditioning, trellising, and latticing, and produces small multiples showing different subsets of the data. If we facet the previous plot by D we will get a plot where each value of D is displayed in a different panel.
+
+### Components of the layered grammar
+
+The layered grammar of `ggplot2` defines the components of a plot as:
+
+* a default dataset and set of mappings from variables to aesthetics,
+* one or more layers, with each layer having one geometric object, one statistical transformation, one position adjustment, and optionally, one dataset and set of aesthetic mappings,
+* one scale for each aesthetic mapping used,
+* a coordinate system,
+* the facet specification.
+
+Layers are responsible for creating the objects that we perceive on the plot. A layer is composed of four parts:
+
+* data and aesthetic mapping,
+* a statistical transformation (stat),
+* a geometric object (geom), and 
+* a position adjustment.
+
+## B. ggplot()
+
+There are three common ways to invoke ggplot:
+
+* ggplot(df, aes(x, y, <other aesthetics>))
+    + _if all layers use the same data and the same set of aesthetics_  
+* ggplot(df)
+    + _when one data frame is used predominantly as layers are added, but the aesthetics may vary from one layer to another._
+* ggplot()
+    + _when multiple data frames are used to produce different layers_
+
+### Usage
+
+{% highlight r %}
+ggplot() +
+  layer(
+      data = diamonds, mapping = aes(x = carat, y = price),
+      geom = "point", stat = "identity", position = "identity"
+  ) +
+  layer(
+    data = diamonds, mapping = aes(x = carat, y = price),
+    geom = "smooth", position = "identity",
+    stat = "smooth", method = lm
+  ) +
+  scale_y_log10() +
+  scale_x_log10() +
+  coord_cartesian()
+{% endhighlight %}
+
+Shorthanded:
+{% highlight r %}
+ggplot(diamonds, aes(carat,price)) +
+  geom_point() +
+  stat_smooth(method=lm) +
+  scale_x_log(10) +
+  scale_y_log(10)
+{% endhighlight %}
+
+
+## C. qplot()
+
+### Usage
+
+{% highlight r %}
+qplot(x, y = NULL, ..., data, facets = NULL, margins = FALSE,
+  geom = "auto", stat = list(NULL), position = list(NULL), 
+  xlim = c(NA,NA), ylim = c(NA, NA), log = "", main = NULL,
+  xlab = deparse(substitute(x)), ylab = deparse(substitute(y)), asp = NA)
+{% endhighlight %}
+
+### Arguments
+
+
+[Arguments for `qplot()`]
+
+arg | description
+--- | -----
+x  | x values
+y   | y values
+... | other aesthetics passed for each layer
+data	| data frame to use (optional). If not specified, will create one, extracting vectors from the current environment.
+facets | faceting formula to use. Picks facet_wrap or facet_grid depending on whether the formula is one sided or two-sided
+margins	| whether or not margins will be displayed
+geom | character vector specifying geom to use. Defaults to "point" if x and y are specified, and "histogram" if only x is specified.
+stat | character vector specifying statistics to use
+position | character vector giving position adjustment to use
+xlim	| limits for x axis
+ylim | limits for y axis
+log | which variables to log transform ("x", "y", or "xy")
+main | character vector or expression for plot title
+xlab |	character vector or expression for x axis label
+ylab | character vector or expression for y axis label
+asp	| the y/x aspect ratio
+
+
+### Sources
+
+[Hadley WICKHAM. A Layered Grammar of Graphics](http://vita.had.co.nz/papers/layered-grammar.pdf)

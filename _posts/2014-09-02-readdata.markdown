@@ -1,0 +1,134 @@
+---
+layout: post
+title:  "R -  Read Data"
+date:   2014-09-02 11:44:27
+categories: r programming data.frames data.tables
+tags: [r, data science]
+---
+
+### Download Files
+
+{% highlight r %}
+  download.file(fileUrl="someurl", destfile="somename", method="curl")
+  datedownloaded = date()
+{% endhighlight %}
+
+### Flat Files
+
+Loading flat files:
+
+{% highlight r %}
+    read.table(file="somefile", sep=",", header=TRUE)
+{% endhighlight %}
+
+`read.csv` sets `sep=","` and `header=TRUE`
+
+Other paramenters:
+
+`quote` -> any quote. "" means no quote.
+
+`na.string` -> character that represents missing value
+
+`nrows` -> how many rows to read from file
+
+`skip` -> number of lines to skip before starting to read
+
+#### Fixed Width Text
+
+{% highlight r %}
+x <- read.fwf(file="somefile", skip= 4, widths = c(1,3,5,6,12))
+{% endhighlight %}
+
+### Excel
+
+{% highlight r %}
+library(xlxs)
+xData <- read.xlsx("filename", sheetIndex=1, header=TRUE)
+{% endhighlight %}
+
+Spedific rows and columns:
+
+{% highlight r %}
+library(xlxs)
+xData <- read.xlsx("filename", sheetIndex=1, colIndex=2:3, rowIndex=1:4)
+{% endhighlight %}
+
+`write.xlsx` function will write out an Excel file.
+
+### XML
+
+### JSON
+
+### Mysql
+
+### HDF5
+
+Hierachical data format.
+
+Groups contains zero or more data sets and metada
+- Have a group header with group name and list of attributes
+- Have a group symbol table with a list of objects in group
+
+Datasets multidimensional array of data elmentes with metadata
+- Have a header with name, datatype, dataspeace, and storage layout
+- Have a data array with the data
+
+{% highlight r %}
+source("http://bioconductor.org/biocLite.R")
+biocLite("rhdf5")
+
+library(rhdf5)
+h5file = h5createFile("example.h5")
+{% endhighlight %}
+
+#### Create groups
+
+{% highlight r %}
+h5createGroup("example.h5","g")
+{% endhighlight %}
+
+#### Write to groups
+
+{% highlight r %}
+a= matrix(1:10,nr-5,nc=2)
+h5write(A,"example.h5","g/a")
+{% endhighlight %}
+
+### WEB
+
+### APIs
+
+#### Read from twitter
+
+{% highlight r %}
+myapp = outh_app("twitter", key="yourConsumerKeyHere",
+        secret="yourConsumerSecretHere")
+sig = sign_oauth1.0(myapp, token = "yourTokenHere", 
+      token_secret = "yourTokenSecretHere")
+homeTL = GET("https://api.twitter.com/1.1/statuses/home_timeline.json", sig)
+{% endhighlight %}
+
+#### Read from github
+
+{% highlight r %}
+myapp = outh_app("github", key="yourConsumerKeyHere", 
+    secret="yourConsumerSecretHere")
+sig = sign_oauth1.0(myapp, token = "yourTokenHere", 
+    token_secret = "yourTokenSecretHere")
+homeTL = GET("somegithubaddress", sig)
+{% endhighlight %}
+
+#### Converting the json object
+
+{% highlight r %}
+library(jsonlite)
+json1 = content(homeTL)
+json2 = jsonlite::fromJSON(toJSON(json1)) ## Convert to dataframe
+{% endhighlight %}
+
+
+### Other sources
+
+
+
+

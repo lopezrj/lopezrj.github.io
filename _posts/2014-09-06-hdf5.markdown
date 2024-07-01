@@ -1,0 +1,108 @@
+---
+layout: post
+title:  "Introduction to HDF5"
+date:   2014-09-06 10:44:27
+categories: hdf5 programming
+tags: [r, data types]
+---
+
+[Source](https://portal.hdfgroup.org/display/HDF5/HDF5)
+
+HDF5 is Hierarchical Data Format product consisting of a data format specification and a supporting library implementation. 
+
+### HDF5 File Organization and Data Model
+
+HDF5 files are organized in a hierarchical structure, with two primary structures: groups and datasets.
+
+__HDF5 group__: a grouping structure containing instances of zero or more groups or datasets, together with supporting metadata.
+
+__HDF5 dataset__: a multidimensional array of data elements, together with supporting metadata.
+Working with groups and group members is similar in many ways to working with directories and files in UNIX. 
+
+As with UNIX directories and files, objects in an HDF5 file are often described by giving their full (or absolute) path names.
+
+/ signifies the root group.
+/foo signifies a member of the root group called foo.
+/foo/zoo signifies a member of the group foo, which in turn is a member of the root group.
+
+Any HDF5 group or dataset may have an associated attribute list. An HDF5 attribute is a user-defined HDF5 structure that provides extra information about an HDF5 object.
+
+#### HDF5 Groups
+
+An HDF5 group is a structure containing zero or more HDF5 objects. A group has two parts:
+
+A group header, which contains a group name and a list of group attributes.
+A group symbol table, which is a list of the HDF5 objects that belong to the group.
+
+#### HDF5 Datasets
+
+A dataset is stored in a file in two parts: a header and a data array.
+
+The header contains information that is needed to interpret the array portion of the dataset, as well as metadata (or pointers to metadata) that describes or annotates the dataset. Header information includes the name of the object, its dimensionality, its number-type, information about how the data itself is stored on disk, and other information used by the library to speed up access to the dataset or maintain the file's integrity.
+
+There are four essential classes of information in any header: name, datatype, dataspace, and storage layout.
+
+__1. Name.__ A dataset name is a sequence of alphanumeric ASCII characters.
+
+__2. Datatype__. HDF5 allows one to define many different kinds of datatypes. There are two categories of datatypes: atomic datatypes and compound datatypes. Atomic datatypes can also be system-specific, or NATIVE, and all datatypes can be named:
+
+* Atomic datatypes are those that are not decomposed at the datatype interface level, such as integers and floats.
+* NATIVE datatypes are system-specific instances of atomic datatypes.
+* Compound datatypes are made up of atomic datatypes.
+
+Named datatypes are either atomic or compound datatypes that have been specifically designated to be shared across datasets.
+
+Atomic datatypes include integers and floating-point numbers. Each atomic type belongs to a particular class and has several properties: size, order, precision, and offset. In this introduction, we consider only a few of these properties.
+
+Atomic classes include integer, float, string, bit field, and opaque. (Note: Only integer, float and string classes are available in the current implementation.)
+
+Properties of integer types include size, order (endian-ness), and signed-ness (signed/unsigned).
+
+Properties of float types include the size and location of the exponent and mantissa, and the location of the sign bit.
+
+The datatypes that are supported in the current implementation are:
+
+- Integer datatypes: 8-bit, 16-bit, 32-bit, and 64-bit integers in both little and big-endian format
+- Floating-point numbers: IEEE 32-bit and 64-bit floating-point numbers in both little and big-endian format
+- References
+- Strings
+
+NATIVE datatypes. Although it is possible to describe nearly any kind of atomic datatype, most applications will use predefined datatypes that are supported by their compiler. In HDF5 these are called native datatypes. NATIVE datatypes are C-like datatypes that are generally supported by the hardware of the machine on which the library was compiled. In order to be portable, applications should almost always use the NATIVE designation to describe data values in memory.
+
+The NATIVE architecture has base names which do not follow the same rules as the others. Instead, native type names are similar to the C type names. The following figure shows several examples.
+
+* A compound datatype is one in which a collection of several datatypes are represented as a single unit, a compound datatype, similar to a struct in C. The parts of a compound datatype are called members. The members of a compound datatype may be of any datatype, including another compound datatype. It is possible to read members from a compound type without reading the whole type.
+
+Named datatypes. Normally each dataset has its own datatype, but sometimes we may want to share a datatype among several datasets. This can be done using a named datatype. A named datatype is stored in the file independently of any dataset, and referenced by all datasets that have that datatype. Named datatypes may have an associated attributes list.
+
+__3. Dataspace__. A dataset dataspace describes the dimensionality of the dataset. The dimensions of a dataset can be fixed (unchanging), or they may be unlimited, which means that they are extendible (i.e. they can grow larger).
+
+Properties of a dataspace consist of the rank (number of dimensions) of the data array, the actual sizes of the dimensions of the array, and the maximum sizes of the dimensions of the array. For a fixed-dimension dataset, the actual size is the same as the maximum size of a dimension. When a dimension is unlimited, the maximum size is set to the value H5P_UNLIMITED. (An example below shows how to create extendible datasets.)
+
+A dataspace can also describe portions of a dataset, making it possible to do partial I/O operations on selections. Selection is supported by the dataspace interface (H5S). Given an n-dimensional dataset, there are currently four ways to do partial selection:
+
+* Select a logically contiguous n-dimensional hyperslab.
+* Select a non-contiguous hyperslab consisting of elements or blocks of elements (hyperslabs) that are equally spaced.
+* Select a union of hyperslabs.
+* Select a list of independent points.
+
+Since I/O operations have two end-points, the raw data transfer functions require two dataspace arguments: one describes the application memory dataspace or subset thereof, and the other describes the file dataspace or subset thereof.
+
+__4. Storage layout__. The HDF5 format makes it possible to store data in a variety of ways. The default storage layout format is contiguous, meaning that data is stored in the same linear way that it is organized in memory. Two other storage layout formats are currently defined for HDF5: compact, and chunked. In the future, other storage layouts may be added.
+
+Compact storage is used when the amount of data is small and can be stored directly in the object header. (Note: Compact storage is not supported in this release.)
+
+Chunked storage involves dividing the dataset into equal-sized "chunks" that are stored separately. Chunking has three important benefits:
+
+- It makes it possible to achieve good performance when accessing subsets of the datasets, even when the subset to be chosen is orthogonal to the normal storage order of the dataset.
+- It makes it possible to compress large datasets and still achieve good performance when accessing subsets of the dataset.
+- It makes it possible efficiently to extend the dimensions of a dataset in any direction.
+
+
+### HDF5 Attributes
+
+Attributes are small named datasets that are attached to primary datasets, groups, or named datatypes. Attributes can be used to describe the nature and/or the intended usage of a dataset or group. An attribute has two parts: (1) a name and (2) a value. The value part contains one or more data entries of the same datatype.
+
+The Attribute API (H5A) is used to read or write attribute information. When accessing attributes, they can be identified by name or by an index value. The use of an index value makes it possible to iterate through all of the attributes associated with a given object.
+
+The HDF5 format and I/O library are designed with the assumption that attributes are small datasets. They are always stored in the object header of the object they are attached to. Because of this, large datasets should not be stored as attributes. How large is "large" is not defined by the library and is up to the user's interpretation. (Large datasets with metadata can be stored as supplemental datasets in a group with the primary dataset.)
