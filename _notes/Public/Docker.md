@@ -2,7 +2,7 @@
 title: Docker
 feed: show
 date: 01-07-2024
-permalink: docker
+permalink: /docker
 format: list
 ---
 
