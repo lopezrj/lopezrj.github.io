@@ -1,6 +1,6 @@
 ---
-layout: post
 title:  "Data Science"
+feed: show
 date:   2014-06-29 12:02:03
 categories: [data science]
 tags: [data science]

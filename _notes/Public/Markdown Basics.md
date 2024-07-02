@@ -1,7 +1,7 @@
 ---
-layout: post
-title:  "Markdown"
-date:   2017-09-14 9:18:27
+title: Markdown Basics
+feed: show
+date: 01-07-2024
 categories: markdown programming 
 tags: [markdown]
 ---

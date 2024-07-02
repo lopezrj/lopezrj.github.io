@@ -3,6 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: Post
-permalink: /
-title: Jekyll Garden
+permalink: /notes
+title: Rojo Garden
+feedformat: card
 ---

@@ -1,12 +1,13 @@
 ---
-layout: post
-title:  "Test APIs"
-date:   2021-10-29 09:51:27
-categories: programming api
-tags: [api, json]
+title : Markdown Rendered
+feed: show
+date : 01-02-2021
+tags:
+  - api
+  - json
 ---
 
-# API for testing
+# API for testing 01-02-2021
 
 
 #### [Chuck Norris Facts](https://api.chucknorris.io/)
