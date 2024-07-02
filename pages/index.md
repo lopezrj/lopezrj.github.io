@@ -5,5 +5,4 @@
 layout: Post
 permalink: /
 title: Rojo Garden
-feedformat: card
 ---
