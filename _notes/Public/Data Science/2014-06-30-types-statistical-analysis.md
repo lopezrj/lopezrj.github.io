@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "Types of Statistical Analysis"
 date:   2014-06-30 12:02:03
 categories: [data science]

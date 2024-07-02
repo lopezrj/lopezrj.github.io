@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "R - Basic Data Types and Vectors"
 date:   2014-08-28 21:51:27
 categories: r programming vectors

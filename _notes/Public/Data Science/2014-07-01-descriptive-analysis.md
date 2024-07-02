@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "Descriptive Analysis"
 date:   2014-07-01 12:02:03
 categories: [data science]

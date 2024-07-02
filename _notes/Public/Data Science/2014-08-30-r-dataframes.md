@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "R -  Data Frames"
 date:   2014-08-30 11:44:27
 categories: r programming data.frames

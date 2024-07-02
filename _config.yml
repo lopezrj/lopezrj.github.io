@@ -71,6 +71,7 @@ collections:
       permalink: /note/:title
 
 markdown: kramdown
+highlighter: rouge
 
 kramdown:
   input: GFM

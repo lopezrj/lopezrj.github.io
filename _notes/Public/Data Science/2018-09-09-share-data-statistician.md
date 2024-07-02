@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "2. Share Data with statisticians"
 date:   2018-09-09 12:57:27
 categories: r 

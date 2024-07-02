@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "R - Exploratory Factor Analysis"
 date:   2021-11-02 01:51:27
 categories: r

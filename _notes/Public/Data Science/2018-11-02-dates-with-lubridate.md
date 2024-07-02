@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "R - Date objects using lubridate package"
 date:   2018-11-02 12:02:03
 categories: [r, dates, data science]

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: Post
 title:  "Kubernetes Cluster on Fedora Coreos"
 date:   2021-10-03 12:02:03
 categories: [devops]
