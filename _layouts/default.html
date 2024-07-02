@@ -57,8 +57,10 @@
                     {%- else -%}
                             <!--- Show Feed Part -->
                 <div class="column is-6-widescreen  is-8-desktop is-8-tablet is-12-mobile">
+                    {%- if false -%}
                             <h5 class="meta-title"><a href="/">← Home</a></h5>
                             <div class="jumbo">{{page.title}}</div>
+                    {%- endif -%}
                             {%- include Content.html -%}
                             {%- include Feed.html -%}
                 </div>
