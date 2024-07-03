@@ -49,7 +49,3 @@ date: 03-10-2018
 - The Dockerfile `EXPOSE` instruction documents the network port an application uses.
 
 - The Dockerfile `ENTRYPOINT` instruction sets the default application to run when the image is started as a container.
-
-
-
-- ``
