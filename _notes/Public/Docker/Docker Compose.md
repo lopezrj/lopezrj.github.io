@@ -15,7 +15,7 @@ Example:
 ```
 services:
   web-fe:
-    build: .                  # Use the Dockerfile in current directory
+    build: .     # Use the Dockerfile in current directory
     command: python app.py
     ports:
       - target: 8080
