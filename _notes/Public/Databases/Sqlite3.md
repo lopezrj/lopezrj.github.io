@@ -1,9 +1,7 @@
 ---
-layout: Post
-title:  "SQLite3"
-date:   2018-10-03 12:07:07
-categories: database
-tags: [databases]
+title: Sqlite 3
+feed: show
+date: 03-10-2018
 ---
 
 SQLite is an open source, embedded relational database. Rathern than running independently as a stand-alone process, it coexist insede the application it serves - within its process space.
