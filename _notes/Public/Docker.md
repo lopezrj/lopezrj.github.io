@@ -8,6 +8,7 @@ format: list
 
 [[How to Setup Docker]]
 
+[[Docker Commands]]
+
 [[Docker Compose]]
 
-[[Docker Commands]]
